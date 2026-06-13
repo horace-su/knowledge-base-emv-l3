@@ -1,3 +1,6 @@
 .claude
 .ruff_cache
-web-docs/
+
+# web-docs：原始 PDF 体积大/含第三方版权，不入库；仅跟踪来源清单 SOURCES.md
+web-docs/*
+!web-docs/SOURCES.md

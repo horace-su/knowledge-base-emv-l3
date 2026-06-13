@@ -13,6 +13,10 @@
 - [ODA 证书链字节级](./ODA证书链字节级.md) —— CAPK→Issuer(90)→ICC(9F46) 恢复格式、SDA/DDA/CDA、失败点→TVR
 - 关键层级：L1 物理层 → L2 内核/应用 → **L3 端到端集成**（各卡组织自定义，EMVCo 仅认证框架/工具）
 
+### 一·五、L3 主机侧：报文与联机授权
+- [ISO 8583 与 Field 55 报文层](./ISO8583与Field55报文层.md) —— MTI/位图/关键 DE、Field 55(DE55) 承载的 EMV TLV 清单(请求 vs 响应)、主机侧 L3 校验点
+- [ARQC / ARPC 联机授权](./ARQC-ARPC联机授权.md) —— 两次 GENERATE AC、ARQC 生成→发卡行验证→ARPC 回写→发卡行认证、CVN、发卡行脚本(71/72) 时序
+
 ### 二、FIME 测试工具
 - [FIME L3 测试工具深度解析](./FIME-L3测试工具深度解析.md) —— 10 个工具总览（ASTREX / BTT / STP / Card Simulator / Card Spy / SmartSpy+ / EMV PVT 等）
 - [FIME-BTT 品牌测试工具深度解析](./FIME-BTT-品牌测试工具深度解析.md) —— 旗舰 L3 产品 BTT 的能力、卡组织覆盖、软硬件组成
@@ -55,20 +59,22 @@
 
 ## 可进一步深入（备选）
 - JCB TCI / 银联 QuickPass 的逐用例清单（需各卡组织测试包，公开资料有限）
-- 报文层：ISO 8583 域、字段 55（EMV TLV 数据）在 L3 主机测试中的校验
 - 实测抓包：用 Card Spy / SmartSpy+ 解读真实交易 APDU 与 TLV
+- ~~报文层：ISO 8583 域、字段 55（EMV TLV 数据）在 L3 主机测试中的校验~~ ✅ 已补（见上「一·五」两篇）
 
-## 一致性核查（2026-06-12 通读）
+## 一致性核查（2026-06-13 通读）
 全库已做一次系统通读，结论：
 
 | 检查项 | 结果 |
 |--------|------|
-| 内部链接（25 处 .md + 5 处 web-docs 反链） | ✅ 全部有效，零失效 |
-| README 文档覆盖 | ✅ 全部已索引，无孤儿 |
+| 内部 .md 链接（README 索引 22 篇 + web-docs/SOURCES.md） | ✅ 全部有效，零失效 |
+| README 文档覆盖 | ✅ 22 篇全部已索引，无孤儿 |
+| web-docs 原始 PDF | ⚠️ 已恢复为来源清单（`web-docs/SOURCES.md`）；原始 PDF 为会话临时下载、未入库，正文中"本地副本"标注仅供回溯，对应**公开 URL 有效** |
 | ADVT/CDET 弃用日期（2022-07-16） | ✅ 4 处一致 |
 | 用例数（ADVT 29=22+7、CDET 17=13+4） | ✅ 跨文档一致 |
-| Visa RID（A000000003）/ 内核编号（K2=MC、K3=Visa、K6=Discover） | ✅ 全库一致 |
+| Visa RID（A000000003）/ 内核编号（K2=MC、K3=Visa、K6=Discover） | ✅ 全库一致（含新增 [Kernel Deep Dive](./emv-contactless-kernel-deep-dive.md) K1–K7 表） |
 | 术语 M-TIP / D-PAS | ✅ 自洽（裸写 MTIP 仅见于参考号格式） |
+| 新增主机侧两篇（[ISO 8583/Field 55](./ISO8583与Field55报文层.md)、[ARQC/ARPC](./ARQC-ARPC联机授权.md)） | ✅ 已接入 [TAC/IAC/TVR](./TAC-IAC-TVR决策逻辑.md)「转联机」出口，互链一致 |
 
 **已修正**：通用"三大非接限额"与 Mastercard"四大限额"之间补加交叉说明（[接触与非接 CVM 详解](./接触与非接CVM详解.md)），指明 MC 将交易限额拆为 On-device/No-On-device，Visa 走单一 CVM 限额。
 
