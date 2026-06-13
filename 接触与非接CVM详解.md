@@ -107,9 +107,38 @@
 
 ## 四、美国市场特例
 
-- 美国**非接交易金额无上限**(无 Transaction Limit 概念上的硬封顶)。
+- 美国**非接交易金额无上限**(Transaction Limit 设为技术最大值,无硬封顶)。
 - 美国**接触与非接共用同一套 No CVM 限额**。
 - (其他地区,如曾经的非接小额免密限额,各国监管/卡组织设定不同。)
+
+### 4.1 美国非接 CVM 限额(生产值参考)
+
+据 U.S. Payments Forum《Contactless Limits and EMV Transaction Processing》(2020-10,有人值守,见 [`web-docs/`](./web-docs/SOURCES.md)):
+
+| 卡组织 | Floor Limit | **CVM 限额** | Transaction Limit |
+|--------|-------------|-------------|-------------------|
+| American Express | Zero | **$200.01**(达到/超过需 CVM) | 技术最大值 |
+| Discover | Zero(不强制) | **$100**(超过且无 PIN/CDCVM 可被争议) | 不强制 |
+| Mastercard | Zero | **$100**(限额下仅 No CVM) | 设为其他接口允许的最大值 |
+| Visa | Zero | **不要求**(如设则用高值如 $200) | 最大值 |
+| UnionPay International | Zero | **$100.00** | 上限极大($9,999,999,999.99) |
+
+> ⚠️ **关键警示**:上表为**生产环境当前设置**,**未必等于 EMV L3 认证时所用的值**——L3 测试用例常用特定阈值/proxy 金额触发各分支。配置实际值须与收单方/方案商按 AID 逐一确认。
+> 移动设备(手机/穿戴)在超过 CVM 限额时,reader 须为每个 AID 启用 **CDCVM** 以免受理问题。
+
+### 4.2 无人值守:CAT 等级
+
+无人值守终端(Cardholder Activated Terminal)的 CVM/交易限额随 **CAT 等级**变化:
+
+| CAT 等级 | 典型场景 |
+|----------|----------|
+| Dual CAT (1/2) | 自动加油机(AFD) |
+| CAT Level 1 | 自动售货机 |
+| CAT Level 2 | 自助服务终端 |
+| CAT Level 3 | 限额终端(Limited Amount) |
+| CAT Level 4 | 机上商务(In-Flight Commerce) |
+
+> 借记网络的 No CVM 非接交易要求商户/收单处理方注册并启用 PIN-less。Mastercard 对无人值守按 CAT 等级有专门处理规则。
 
 ---
 

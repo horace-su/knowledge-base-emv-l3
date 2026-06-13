@@ -67,8 +67,13 @@ ISO 8583 是银行卡交易报文标准。一条报文 = **MTI + 位图(Bitmap) 
 | **`9F35`** | Terminal Type | 终端类型 |
 | **`9F09`** | Application Version Number | 应用版本 |
 | **`84` / `9F06`** | DF Name / AID | 选中的应用标识 |
+| **`5F34`** | Application PAN Sequence Number | 卡 PAN 序列号 |
+| **`9F6E`** | Form Factor Indicator(FFI) | 设备形态指示(见 [Mastercard 非接 CVM 机制与 FFI](./Mastercard非接CVM机制与FFI.md)) |
+| **`9F53`** | Transaction Category Code | 交易类别码(部分网络可选) |
 
-> 哪些 tag 必须出现,取决于**卡组织 + CVN(密码版本)**。各卡组织对 Field 55 必含 tag 有明确清单(Visa VIS / qVSDC、Mastercard M/Chip、银联 UICS 等),L3 测试会逐项核对。
+> 哪些 tag 必须出现,取决于**卡组织 + CVN(密码版本)**:同一 tag 在 AMEX/Discover/Mastercard/Visa 各自标注为 **M(必填)/ O(可选)/ C(条件)**。各卡组织对 Field 55 必含 tag 有明确清单(Visa VIS / qVSDC、Mastercard M/Chip、银联 UICS 等),L3 测试会逐项核对。权威对照见 U.S. Payments Forum 白皮书 Appendix A([`web-docs/`](./web-docs/SOURCES.md))。
+>
+> ⚠️ **密文输入 tag 必须原样透传**:`82`/`9F36`/`9F10`/`9F02`/`9F1A`/`95`/`5F2A`/`9A`/`9C`/`9F37` 等带 `*` 的"密文数据元"由卡产生,收单主机**不得修改**;一旦被篡改/损坏,发卡行重算 **ARQC 必然失败**(见 [ARQC/ARPC 联机授权](./ARQC-ARPC联机授权.md))。这是主机侧 L3 的高频失败点。
 
 ### 2. 授权响应(0110)中 Field 55 回写的 tag
 

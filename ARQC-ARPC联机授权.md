@@ -49,6 +49,10 @@
 
 > **CVN(Cryptogram Version Number)** 决定 ARQC/ARPC 的算法细节与参与数据。常见:Visa CVN10 / CVN17 / CVN18,Mastercard M/Chip CVN 等。L3 测试需确保终端按卡声明的 CVN 正确处理。
 
+> **`91` 何时必须回写(Mastercard 规则,据 U.S. Payments Forum 白皮书 Appendix A)**:联机响应中 Issuer Authentication Data(`91`)在**同时满足**以下条件时**必须**存在(源自 Mastercard stand-in 的交易除外):
+> ① DE 22(POS Entry Mode)子域 1 = `05`(芯片);② DE 55 存在且含全部必填 tag;③ ARQC 验证成功;④ 发卡行响应码为批准。
+> 另:从联机响应得到的 `91`**绝不下发给非接设备/形态**(非接不做发卡行认证回合)。各网络对 `91` 的要求不同——Mastercard 标 M(必填)、Visa 标 C(条件)、Amex/Discover 标 O(可选)。
+
 ---
 
 ## 五、第二次 GENERATE AC:卡做发卡行认证,出 TC/AAC

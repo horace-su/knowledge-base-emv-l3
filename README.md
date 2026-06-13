@@ -22,6 +22,7 @@
 - [FIME-BTT 品牌测试工具深度解析](./FIME-BTT-品牌测试工具深度解析.md) —— 旗舰 L3 产品 BTT 的能力、卡组织覆盖、软硬件组成
 
 ### 三、各卡组织 L3 认证要求
+- [L3 认证项目生命周期](./L3认证项目生命周期.md) —— 一次项目端到端流程：立项→配置/测试计划→执行→评审/返工→提交/签发(LoA/CCRT)→维护/再认证；角色、产出物、高频卡点
 - [各卡组织 L3 认证测试要求一览](./各卡组织L3认证测试要求一览.md) —— Visa / Mastercard / Amex / Discover / JCB / 银联 对照总表
 - [Visa 与 Mastercard L3 认证深度解析](./Visa与Mastercard-L3认证深度解析.md) —— 两大组织流程、工具、提交机制对比
 - [Amex 与 Discover L3 认证深度解析](./Amex与Discover-L3认证深度解析.md) —— AEIPS/Expresspay(AFD/Transit/Fleet) + D-PAS E2E(ZIP/Fallback/Cross Testing)
@@ -67,14 +68,18 @@
 
 | 检查项 | 结果 |
 |--------|------|
-| 内部 .md 链接（README 索引 22 篇 + web-docs/SOURCES.md） | ✅ 全部有效，零失效 |
-| README 文档覆盖 | ✅ 22 篇全部已索引，无孤儿 |
+| 内部 .md 链接（README 索引 23 篇 + web-docs/SOURCES.md） | ✅ 全部有效，零失效 |
+| README 文档覆盖 | ✅ 23 篇全部已索引，无孤儿 |
 | web-docs 原始 PDF | ⚠️ 已恢复为来源清单（`web-docs/SOURCES.md`）；原始 PDF 为会话临时下载、未入库，正文中"本地副本"标注仅供回溯，对应**公开 URL 有效** |
 | ADVT/CDET 弃用日期（2022-07-16） | ✅ 4 处一致 |
 | 用例数（ADVT 29=22+7、CDET 17=13+4） | ✅ 跨文档一致 |
 | Visa RID（A000000003）/ 内核编号（K2=MC、K3=Visa、K6=Discover） | ✅ 全库一致（含新增 [Kernel Deep Dive](./emv-contactless-kernel-deep-dive.md) K1–K7 表） |
 | 术语 M-TIP / D-PAS | ✅ 自洽（裸写 MTIP 仅见于参考号格式） |
 | 新增主机侧两篇（[ISO 8583/Field 55](./ISO8583与Field55报文层.md)、[ARQC/ARPC](./ARQC-ARPC联机授权.md)） | ✅ 已接入 [TAC/IAC/TVR](./TAC-IAC-TVR决策逻辑.md)「转联机」出口，互链一致 |
+| 主机侧 + [生命周期](./L3认证项目生命周期.md)对 U.S. Payments Forum 白皮书 v5.0(2023) 核对 | ✅ Field 55 tag 表（Appendix A）一致；已据原文补：双轨模型(主机认证 NIV/host cert vs L3 终端)、密文 tag 须原样透传、`91` 回写条件、过期内核宽限、自助/委托路径、Faster EMV 回归 |
+| Visa ADVT/CDET v2.1(2019) PDF 核对 | ✅ 框架(CCRT/CVES/Self-Accreditation) 一致；该文为高层概述,**不含逐用例数**,故 29=22+7 / 17=13+4 仍源自旧版工具(README 既有说明保持) |
+| Mastercard TSE Guide(2015) PDF 核对 | ✅ TSE/M-TIP 框架(Windows 应用、生成测试计划、日志验证)一致,[M-TIP 专题](./M-TIP-TSE配置详解.md)无需更正 |
+| Contactless Limits(2020) PDF 核对 | ✅ "三大非接限额"模型与 MC 四限额拆分一致；已补美国生产 CVM 限额值(Amex $200.01/Disc·MC·UPI $100/Visa 无)+ CAT 等级,见 [接触与非接 CVM 详解](./接触与非接CVM详解.md)(附"生产值≠L3 认证值"警示) |
 
 **已修正**：通用"三大非接限额"与 Mastercard"四大限额"之间补加交叉说明（[接触与非接 CVM 详解](./接触与非接CVM详解.md)），指明 MC 将交易限额拆为 On-device/No-On-device，Visa 走单一 CVM 限额。
 
