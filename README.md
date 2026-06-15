@@ -11,11 +11,14 @@
 - [AID 与 CAPK 全卡组织参考表](./AID与CAPK全卡组织参考表.md) —— 全卡组织 AID 速查 + 生产/测试 CAPK 索引表（明确标记 测试 vs 真实）
 - [TAC / IAC / TVR 决策逻辑](./TAC-IAC-TVR决策逻辑.md) —— TVR(95) 位含义、Denial/Online/Default 判定、AAC/ARQC/TC、两次 GENERATE AC
 - [ODA 证书链字节级](./ODA证书链字节级.md) —— CAPK→Issuer(90)→ICC(9F46) 恢复格式、SDA/DDA/CDA、失败点→TVR
+- [EMVCo Kernel 2 V2.11 规范要点](./EMVCo-Kernel2-V2.11规范要点.md) —— Mastercard 非接内核：进程模型、Data Exchange(ACT/DET/DEK/OUT)、Outcome、Data Record、四大限额、RRP、v2.11 变更
+- [终端配置：各内核数据元参考（D-PAS L2）](./终端配置-各内核数据元参考-DPAS-L2.md) —— 跨内核(EMV/Visa/MC/银联/Amex/Discover/JCB/MIR…)的标准+专有(DF81xx)配置标签速查
 - 关键层级：L1 物理层 → L2 内核/应用 → **L3 端到端集成**（各卡组织自定义，EMVCo 仅认证框架/工具）
 
 ### 二、FIME 测试工具
 - [FIME L3 测试工具深度解析](./FIME-L3测试工具深度解析.md) —— 10 个工具总览（ASTREX / BTT / STP / Card Simulator / Card Spy / SmartSpy+ / EMV PVT 等）
 - [FIME-BTT 品牌测试工具深度解析](./FIME-BTT-品牌测试工具深度解析.md) —— 旗舰 L3 产品 BTT 的能力、卡组织覆盖、软硬件组成
+- [FIME BTT `.tpp` 项目文件格式与各卡组织 L3 测试计划](./FIME-BTT-TPP项目文件与L3测试计划.md) —— `.tpp`(ZIP) 工程包结构 + Amex/Discover/Mastercard/Visa 真实测试计划名/版本/用例编号体系（BTT 5.8.0）
 
 ### 三、各卡组织 L3 认证要求
 - [各卡组织 L3 认证测试要求一览](./各卡组织L3认证测试要求一览.md) —— Visa / Mastercard / Amex / Discover / JCB / 银联 对照总表
@@ -23,6 +26,10 @@
 - [Amex 与 Discover L3 认证深度解析](./Amex与Discover-L3认证深度解析.md) —— AEIPS/Expresspay(AFD/Transit/Fleet) + D-PAS E2E(ZIP/Fallback/Cross Testing)
 - [JCB 与银联 L3 认证深度解析](./JCB与银联-L3认证深度解析.md) —— JCB TCI/TCI-CL(J/Smart·J/Speedy) + 银联国内(PBOC/国密)vs 国际(UPI·UAC/QuickPass)
 - [银联国内：PBOC 3.0 与国密算法](./银联国内-PBOC3.0与国密算法.md) —— PBOC 2.0/3.0 沿革、SM2/SM3/SM4、DF69 算法切换、qPBOC、BCTC 认证
+- [银联国际 QuickPass L3 配置与 HK/SG 特殊 CVM](./银联国际-QuickPass-L3配置与HK-SG特殊CVM.md) —— UPI AID/测试 CAPK/TAC/9F66(TTQ) 配置 + 港(344)新(702)非接借记/贷记特殊 CVM 规则
+
+### 三之二、实测案例
+- [L3 认证实例：Sunmi T6F10 终端配置剖析](./L3认证实例-Sunmi-T6F10终端配置剖析.md) —— 同一终端在 Amex/Discover/Mastercard 三程序下的真实 L3 报告：L1/L2 LoA 链、各接口 TAC/9F33/9F1D、CVM 限额、多 AID 取舍（PII 已剥离）
 
 ### 四、Visa 专题
 - [Visa-Global-L3-Test-Set 与 qVSDC-DM](./Visa-Global-L3-Test-Set与qVSDC-DM.md) —— 2022 年取代 ADVT/CDET 的标准测试集 + 条件性工具 qVSDC DM
@@ -35,8 +42,11 @@
 - [M-TIP TSE 问卷与终端配置参数](./M-TIP-TSE问卷与终端配置参数.md) —— 问卷字段→EMV 对象映射（9F35/9F33/9F40）、动态裁剪逻辑、终端配置参数位级详解
 - [Mastercard 非接 CVM 机制与 FFI](./Mastercard非接CVM机制与FFI.md) —— Kernel 2 四大限额 + CVM Capability + On-device CVM；FFI(9F6E) 品牌差异与位级
 
+### 五之二、报文层（主机侧）
+- [ISO 8583 字段 55（DE55）与各卡组织 EMV 数据要求](./ISO8583-字段55-跨卡组织要求.md) —— DE55 的来源(内核 Data Record)、通用必备 EMV 标签、Visa/MC/Amex/Discover/JCB/银联 的 DE55 差异、L3 主机测试关注点
+
 ### 六、原始来源文档
-- [`web-docs/`](./web-docs/) —— 会话中从 web 拉取的原始 PDF（来源清单见 [`web-docs/SOURCES.md`](./web-docs/SOURCES.md)）
+- [`web-docs/`](./web-docs/) —— 原始来源文件（公开规范 PDF + 项目实测资料；来源清单见 [`web-docs/SOURCES.md`](./web-docs/SOURCES.md)）。⚠️ 实测资料含 PII / 第三方机密，纳入版本控制前请阅读 SOURCES.md 的敏感性提示。
 
 ## 关键速记
 
@@ -54,26 +64,33 @@
 ✅ 六大国际卡组织 L3 认证已全部覆盖（Visa / Mastercard / Amex / Discover / JCB / 银联，银联含国内+国际）。
 
 ## 可进一步深入（备选）
-- JCB TCI / 银联 QuickPass 的逐用例清单（需各卡组织测试包，公开资料有限）
-- 报文层：ISO 8583 域、字段 55（EMV TLV 数据）在 L3 主机测试中的校验
+- JCB TCI 的逐用例清单（需 JCB 测试包，公开资料有限）；银联 QuickPass 框架已补（见 [银联国际 QuickPass L3 配置](./银联国际-QuickPass-L3配置与HK-SG特殊CVM.md)）
+- 报文层 DE55 框架已补（见 [ISO 8583 字段 55](./ISO8583-字段55-跨卡组织要求.md)）；可再深入各卡组织主机接口规范的逐标签必选/可选清单
 - 实测抓包：用 Card Spy / SmartSpy+ 解读真实交易 APDU 与 TLV
+- 各卡组织 L3 测试计划的逐用例语义（编号体系已补，见 [FIME BTT .tpp 与 L3 测试计划](./FIME-BTT-TPP项目文件与L3测试计划.md)）
 
-## 一致性核查（2026-06-12 通读）
-全库已做一次系统通读，结论：
+## 一致性核查（2026-06-15 通读）
+全库已做一次系统通读（含新增的实例剖析 / UPI QuickPass / BTT .tpp / DE55 / Kernel 2 / 各内核数据元六篇），结论：
 
 | 检查项 | 结果 |
 |--------|------|
-| 内部链接（25 处 .md + 5 处 web-docs 反链） | ✅ 全部有效，零失效 |
-| README 文档覆盖 | ✅ 全部已索引，无孤儿 |
-| ADVT/CDET 弃用日期（2022-07-16） | ✅ 4 处一致 |
+| 内部链接（24 处 .md 索引 + web-docs 反链） | ✅ 全部有效，零失效 |
+| README 文档覆盖 | ✅ 全部已索引，无孤儿（实测脚本扫描） |
+| ADVT/CDET 弃用日期（2022-07-16） | ✅ 多处一致 |
 | 用例数（ADVT 29=22+7、CDET 17=13+4） | ✅ 跨文档一致 |
 | Visa RID（A000000003）/ 内核编号（K2=MC、K3=Visa、K6=Discover） | ✅ 全库一致 |
+| UPI RID/AID（A000000333 + PIX 01..08） | ✅ 4 篇文档一致 |
 | 术语 M-TIP / D-PAS | ✅ 自洽（裸写 MTIP 仅见于参考号格式） |
 
-**已修正**：通用"三大非接限额"与 Mastercard"四大限额"之间补加交叉说明（[接触与非接 CVM 详解](./接触与非接CVM详解.md)），指明 MC 将交易限额拆为 On-device/No-On-device，Visa 走单一 CVM 限额。
+**本轮修正**：
+- UPI AID 表补 `…0108`（Common AID，仅美国），并将 `…0106` 从「电子现金/QuickPass」更正为「ECash 电子现金（仅港澳）」——QuickPass 是闪付品牌，非 ECash 产品名。
+- UPI 测试 CAPK 索引由「随测试包」具体化为实测 `08/09/0B`（见 [AID 与 CAPK 全卡组织参考表](./AID与CAPK全卡组织参考表.md)），并交叉链接 UPI QuickPass 文档。
+- 全库「无 PDF 提取工具」说明已更正（本机已装 `pdftotext`/`textutil`）。
+
+**历史修正（保留）**：通用"三大非接限额"与 Mastercard"四大限额"补加交叉说明（[接触与非接 CVM 详解](./接触与非接CVM详解.md)）。
 
 **已核查为非冲突（保留）**：
 - AEIPS 版本 6.4 与 4.5/6.4 —— 终端工具支持 vs 卡型式批准，语境不同，不矛盾。
 - `D-PAS`（规范名）与 `DPAS L3`（程序简称）—— 业界两种写法并存，各文档用法自洽。
 
-> 说明：本机无 PDF 提取工具（pdftotext/mutool/python-pdf 均缺），web-docs 中 PDF 仅作存档，内容主要靠 web 检索 + HTML 版获取。部分细节源自较早版本文档（如 TSE 2015、ADVT v6.1.1、CDET v2.3），框架准确，精确编号请以各卡组织门户最新版为准。
+> 说明：本机已安装 `pdftotext`（Poppler），文本型 PDF 可直接抽取（`.docx` 用 `textutil`）；少数图片型 PDF（如 Worldpay 密钥表）仅页眉可抽取。部分细节源自较早版本文档（如 TSE 2015、ADVT v6.1.1、CDET v2.3），框架准确，精确编号请以各卡组织门户最新版为准。
