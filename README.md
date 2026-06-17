@@ -46,7 +46,7 @@
 ### 五之二、报文层（主机侧）
 - [ISO 8583 字段 55（DE55）与各卡组织 EMV 数据要求](./ISO8583-字段55-跨卡组织要求.md) —— DE55 的来源(内核 Data Record)、通用必备 EMV 标签、Visa/MC/Amex/Discover/JCB/银联 的 DE55 差异、L3 主机测试关注点【框架篇】
 - [DE55 逐标签实现清单（字节级）](./ISO8583-DE55-逐标签实现清单.md) —— 以真实收单主机(Cardnow V2.13)Appendix C 为底本，逐标签 ID/长度/数据字节拆分 + 必选随交易路径变化 + 9F53/9F6E 标签复用陷阱【实现篇】
-- [APDU/TLV 实测交易流程解读（字节级走读）](./APDU-TLV实测交易流程解读.md) —— 一笔非接交易 PPSE→SELECT→GPO→READ RECORD→GENERATE AC 的逐条 C/R-APDU 与关键 TLV 字节解析，汇成 DE55（合成示例，讲解解析方法）
+- [APDU/TLV 实测交易流程解读（字节级走读）](./APDU-TLV实测交易流程解读.md) —— 一笔非接交易 PPSE→SELECT→GPO→READ RECORD→GENERATE AC 的逐条 C/R-APDU 与 TLV 字节解析（合成示例教方法）+ §八**真实实证**：FIME BTT 抓取的同一笔 M-TIP06 接触 M/Chip 交易，卡侧 APDU 与主机 DE55 逐字节对应（SGD/新加坡，离线 DDA+PIN，ARQC 联机）
 - [收单主机认证（Host Certification）与 L3 重测触发条件](./收单主机认证与L3重测触发条件.md) —— 主机认证 vs 终端 L3 的位置与先后；Mastercard NIV(TAN)/Visa Acquirer Host/Discover D-PAS Online+Clearing/Amex 流程；"改了什么才需要重做 L3" 的变更触发矩阵
 
 ### 六、原始来源文档
