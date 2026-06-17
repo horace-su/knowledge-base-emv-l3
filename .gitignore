@@ -3,3 +3,10 @@
 web-docs/
 !web-docs/SOURCES.md
 fime-btt-projects/
+
+# 本地临时/草稿文件（非知识库内容）
+Chat.md
+Help.md
+My project.md
+archive/
+happiness/
