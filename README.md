@@ -25,6 +25,7 @@
 - [Visa 与 Mastercard L3 认证深度解析](./Visa与Mastercard-L3认证深度解析.md) —— 两大组织流程、工具、提交机制对比
 - [Amex 与 Discover L3 认证深度解析](./Amex与Discover-L3认证深度解析.md) —— AEIPS/Expresspay(AFD/Transit/Fleet) + D-PAS E2E(ZIP/Fallback/Cross Testing)
 - [JCB 与银联 L3 认证深度解析](./JCB与银联-L3认证深度解析.md) —— JCB TCI/TCI-CL(J/Smart·J/Speedy) + 银联国内(PBOC/国密)vs 国际(UPI·UAC/QuickPass)
+- [JCB TCI 测试用例分组与编号体系](./JCB-TCI测试用例与编号体系.md) —— TCI(J/Smart)/TCI-CL(J/Speedy) 用例分组(应用选择/ODA/CVM/联机/脚本)、编号体系结构、JCB 专有数据元(9F53 TIP)；精确编号需 JCB 测试包核对
 - [银联国内：PBOC 3.0 与国密算法](./银联国内-PBOC3.0与国密算法.md) —— PBOC 2.0/3.0 沿革、SM2/SM3/SM4、DF69 算法切换、qPBOC、BCTC 认证
 - [银联国际 QuickPass L3 配置与 HK/SG 特殊 CVM](./银联国际-QuickPass-L3配置与HK-SG特殊CVM.md) —— UPI AID/测试 CAPK/TAC/9F66(TTQ) 配置 + 港(344)新(702)非接借记/贷记特殊 CVM 规则
 
@@ -43,7 +44,9 @@
 - [Mastercard 非接 CVM 机制与 FFI](./Mastercard非接CVM机制与FFI.md) —— Kernel 2 四大限额 + CVM Capability + On-device CVM；FFI(9F6E) 品牌差异与位级
 
 ### 五之二、报文层（主机侧）
-- [ISO 8583 字段 55（DE55）与各卡组织 EMV 数据要求](./ISO8583-字段55-跨卡组织要求.md) —— DE55 的来源(内核 Data Record)、通用必备 EMV 标签、Visa/MC/Amex/Discover/JCB/银联 的 DE55 差异、L3 主机测试关注点
+- [ISO 8583 字段 55（DE55）与各卡组织 EMV 数据要求](./ISO8583-字段55-跨卡组织要求.md) —— DE55 的来源(内核 Data Record)、通用必备 EMV 标签、Visa/MC/Amex/Discover/JCB/银联 的 DE55 差异、L3 主机测试关注点【框架篇】
+- [DE55 逐标签实现清单（字节级）](./ISO8583-DE55-逐标签实现清单.md) —— 以真实收单主机(Cardnow V2.13)Appendix C 为底本，逐标签 ID/长度/数据字节拆分 + 必选随交易路径变化 + 9F53/9F6E 标签复用陷阱【实现篇】
+- [APDU/TLV 实测交易流程解读（字节级走读）](./APDU-TLV实测交易流程解读.md) —— 一笔非接交易 PPSE→SELECT→GPO→READ RECORD→GENERATE AC 的逐条 C/R-APDU 与关键 TLV 字节解析，汇成 DE55（合成示例，讲解解析方法）
 - [收单主机认证（Host Certification）与 L3 重测触发条件](./收单主机认证与L3重测触发条件.md) —— 主机认证 vs 终端 L3 的位置与先后；Mastercard NIV(TAN)/Visa Acquirer Host/Discover D-PAS Online+Clearing/Amex 流程；"改了什么才需要重做 L3" 的变更触发矩阵
 
 ### 六、原始来源文档
@@ -65,25 +68,32 @@
 ✅ 六大国际卡组织 L3 认证已全部覆盖（Visa / Mastercard / Amex / Discover / JCB / 银联，银联含国内+国际）。
 
 ## 可进一步深入（备选）
-- JCB TCI 的逐用例清单（需 JCB 测试包，公开资料有限）；银联 QuickPass 框架已补（见 [银联国际 QuickPass L3 配置](./银联国际-QuickPass-L3配置与HK-SG特殊CVM.md)）
-- 报文层 DE55 框架已补（见 [ISO 8583 字段 55](./ISO8583-字段55-跨卡组织要求.md)）；可再深入各卡组织主机接口规范的逐标签必选/可选清单
-- 实测抓包：用 Card Spy / SmartSpy+ 解读真实交易 APDU 与 TLV
+- JCB TCI 逐用例**框架与编号体系已补**（见 [JCB TCI 测试用例与编号体系](./JCB-TCI测试用例与编号体系.md)）；**精确用例号/数量**仍需申领 JCB 测试包核对
+- 报文层 DE55 **框架篇 + 实现篇（逐标签字节级）已补**（见 [DE55 逐标签实现清单](./ISO8583-DE55-逐标签实现清单.md)）；可再按所对接卡组织主机接口规范逐条复核必选/可选
+- 实测抓包**方法与字节级走读已补**（见 [APDU/TLV 实测交易流程解读](./APDU-TLV实测交易流程解读.md)，含合成示例）；下一步可用 Card Spy / SmartSpy+ 把**真实抓包数据**替换示例字节
 - 各卡组织 L3 测试计划的逐用例语义（编号体系已补，见 [FIME BTT .tpp 与 L3 测试计划](./FIME-BTT-TPP项目文件与L3测试计划.md)）
 
-## 一致性核查（2026-06-15 通读）
-全库已做一次系统通读（含新增的实例剖析 / UPI QuickPass / BTT .tpp / DE55 / Kernel 2 / 各内核数据元六篇），结论：
+## 一致性核查（2026-06-17 复核）
+2026-06-15 全库系统通读后，2026-06-17 新增三篇（DE55 逐标签实现清单 / APDU-TLV 实测走读 / JCB TCI 用例编号），并对新文档做链接与不变量复核，结论：
 
 | 检查项 | 结果 |
 |--------|------|
-| 内部链接（24 处 .md 索引 + web-docs 反链） | ✅ 全部有效，零失效 |
-| README 文档覆盖 | ✅ 全部已索引，无孤儿（实测脚本扫描） |
+| 内部链接（含新增 3 篇的全部 .md 交叉链与锚点） | ✅ 全部有效，零失效（脚本扫描） |
+| README 文档覆盖 | ✅ 全部 tracked 文档已索引，无孤儿（未跟踪的 Chat.md/Help.md 等临时文件不计） |
 | ADVT/CDET 弃用日期（2022-07-16） | ✅ 多处一致 |
 | 用例数（ADVT 29=22+7、CDET 17=13+4） | ✅ 跨文档一致 |
 | Visa RID（A000000003）/ 内核编号（K2=MC、K3=Visa、K6=Discover） | ✅ 全库一致 |
 | UPI RID/AID（A000000333 + PIX 01..08） | ✅ 4 篇文档一致 |
+| JCB RID（A000000065） | ✅ 与 AID/CAPK 参考表、终端配置一致 |
+| `9F53` 标签复用（通用 TCC vs JCB TIP） | ✅ DE55 实现篇与 JCB 用例篇交叉标注一致 |
 | 术语 M-TIP / D-PAS | ✅ 自洽（裸写 MTIP 仅见于参考号格式） |
 
-**本轮修正**：
+**2026-06-17 新增**：
+- DE55 由单篇拆为【框架篇】+【实现篇】，实现篇以 Cardnow POS Spec V2.13 的 Appendix C 为底本，给出每个标签 ID/Len/Data 字节拆分与定长约束。
+- 新增 APDU/TLV 字节级走读（合成示例），把 PPSE→GPO→GENERATE AC 全流程与 DE55 打包打通。
+- JCB TCI 补用例分组与编号体系结构（精确编号仍待测试包）；同步标注 `9F53` 在通用/JCB 下的标签复用冲突。
+
+**2026-06-15 本轮修正**：
 - UPI AID 表补 `…0108`（Common AID，仅美国），并将 `…0106` 从「电子现金/QuickPass」更正为「ECash 电子现金（仅港澳）」——QuickPass 是闪付品牌，非 ECash 产品名。
 - UPI 测试 CAPK 索引由「随测试包」具体化为实测 `08/09/0B`（见 [AID 与 CAPK 全卡组织参考表](./AID与CAPK全卡组织参考表.md)），并交叉链接 UPI QuickPass 文档。
 - 全库「无 PDF 提取工具」说明已更正（本机已装 `pdftotext`/`textutil`）。
