@@ -31,6 +31,7 @@
 
 ### 三之二、实测案例
 - [L3 认证实例：Sunmi T6F10 终端配置剖析](./L3认证实例-Sunmi-T6F10终端配置剖析.md) —— 同一终端在 Amex/Discover/Mastercard 三程序下的真实 L3 报告：L1/L2 LoA 链、各接口 TAC/9F33/9F1D、CVM 限额、多 AID 取舍（PII 已剥离）
+- [实测失败案例：M-TIP02 技术回退（DE22=90 应为 80）](./ISO8583-报文域全景与POS录入方式.md) —— FIME BTT 抓取的 Mastercard M-TIP02.Test.01.Scenario.01 失败截图逐字段拆解、根因（fallback 录入方式标错）、修复与重测（收录于报文外层篇 §七）
 
 ### 四、Visa 专题
 - [Visa-Global-L3-Test-Set 与 qVSDC-DM](./Visa-Global-L3-Test-Set与qVSDC-DM.md) —— 2022 年取代 ADVT/CDET 的标准测试集 + 条件性工具 qVSDC DM
@@ -44,6 +45,7 @@
 - [Mastercard 非接 CVM 机制与 FFI](./Mastercard非接CVM机制与FFI.md) —— Kernel 2 四大限额 + CVM Capability + On-device CVM；FFI(9F6E) 品牌差异与位级
 
 ### 五之二、报文层（主机侧）
+- [ISO 8583 报文域全景与 POS 录入方式（DE22）/ 技术回退](./ISO8583-报文域全景与POS录入方式.md) —— DE55 **之外**的 ISO 8583 报文域：MTI/Bitmap/DE 结构 + L3 关键域(DE2/3/4/22/35/45/61/39…)速查 + **DE22 录入方式码值(05/07/80/90/91)深入** + **技术回退(80 vs 90)触发链与报文形态** + 服务码自洽 + **实测案例 M-TIP02 回退失败逐字段拆解**【报文外层篇】
 - [ISO 8583 字段 55（DE55）与各卡组织 EMV 数据要求](./ISO8583-字段55-跨卡组织要求.md) —— DE55 的来源(内核 Data Record)、通用必备 EMV 标签、Visa/MC/Amex/Discover/JCB/银联 的 DE55 差异、L3 主机测试关注点【框架篇】
 - [DE55 逐标签实现清单（字节级）](./ISO8583-DE55-逐标签实现清单.md) —— 以真实收单主机(Cardnow V2.13)Appendix C 为底本，逐标签 ID/长度/数据字节拆分 + 必选随交易路径变化 + 9F53/9F6E 标签复用陷阱【实现篇】
 - [APDU/TLV 实测交易流程解读（字节级走读）](./APDU-TLV实测交易流程解读.md) —— 一笔非接交易 PPSE→SELECT→GPO→READ RECORD→GENERATE AC 的逐条 C/R-APDU 与 TLV 字节解析（合成示例教方法）+ §八**真实实证**：FIME BTT 抓取的同一笔 M-TIP06 接触 M/Chip 交易，卡侧 APDU 与主机 DE55 逐字节对应（SGD/新加坡，离线 DDA+PIN，ARQC 联机）
@@ -87,6 +89,11 @@
 | JCB RID（A000000065） | ✅ 与 AID/CAPK 参考表、终端配置一致 |
 | `9F53` 标签复用（通用 TCC vs JCB TIP） | ✅ DE55 实现篇与 JCB 用例篇交叉标注一致 |
 | 术语 M-TIP / D-PAS | ✅ 自洽（裸写 MTIP 仅见于参考号格式） |
+
+**2026-06-17（二次新增 · 报文外层篇 + 实测失败案例）**：
+- 新增 [ISO 8583 报文域全景与 POS 录入方式（DE22）/ 技术回退](./ISO8583-报文域全景与POS录入方式.md)，补齐 DE55 **之外**的报文层：MTI/Bitmap/DE 结构、L3 关键域速查、**DE22 录入方式码值（05 芯片 / 07 非接 / 80 回退 / 90 磁条 / 91 非接磁条）**、技术回退触发链与报文形态、Track 服务码自洽。
+- 收录首个**实测失败案例**：FIME BTT 抓取的 `M-TIP02.Test.01.Scenario.01`（技术回退），终端误送 **DE22=90 应为 80**，逐字段拆解 + 根因（fallback 录入方式映射 bug）+ 修复 + 重测；截图存 `assets/mc-case-1-M-TIP02技术回退.png`（测试卡 BIN，非真实 PII）。
+- 新增 `assets/` 目录用于存放实测截图。
 
 **2026-06-17 新增**：
 - DE55 由单篇拆为【框架篇】+【实现篇】，实现篇以 Cardnow POS Spec V2.13 的 Appendix C 为底本，给出每个标签 ID/Len/Data 字节拆分与定长约束。
