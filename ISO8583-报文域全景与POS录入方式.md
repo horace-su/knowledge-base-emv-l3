@@ -175,7 +175,9 @@ B  PAN  ^  持卡人名  ^  YYMM  SSS  自定义数据
 
 ## 七、实测案例：M-TIP02 技术回退失败（DE22=90 应为 80）
 
-> 来源：FIME BTT 抓取的 Mastercard M-TIP 用例运行截图（测试卡 PAN `5413330089020029` 为 Mastercard 测试 BIN，非真实持卡人数据）。截图见 [`assets/mc-case-1-M-TIP02技术回退.png`](./assets/mc-case-1-M-TIP02技术回退.png)。
+> 来源：FIME BTT 抓取的 Mastercard M-TIP 用例运行截图（测试卡 PAN `5413330089020029` 为 Mastercard 测试 BIN，非真实持卡人数据）。
+
+![M-TIP02 技术回退失败截图（FIME BTT，DE22 误送 90 应为 80）](./assets/mc-case-1-M-TIP02技术回退.png)
 
 **用例**：`M-TIP02.Test.01.Scenario.01` — *Simulate MTIP_02_25A on Contact*
 
@@ -240,5 +242,3 @@ Step 1 of (Track 2): In 0100/0200/1200 message,
 | DE55 内部 | 见 [DE55 逐标签实现清单](./ISO8583-DE55-逐标签实现清单.md) |
 
 > 抓包与字节级走读见 [APDU/TLV 实测交易流程解读](./APDU-TLV实测交易流程解读.md)；主机侧认证位置与重测触发见 [收单主机认证与 L3 重测触发条件](./收单主机认证与L3重测触发条件.md)。
-</content>
-</invoke>
