@@ -4,7 +4,7 @@
   "description": "EMV Level 3 终端集成/认证 中文知识库",
   "private": true,
   "type": "module",
-  "packageManager": "pnpm@11.5.1",
+  "packageManager": "pnpm@9.15.9",
   "scripts": {
     "docs:dev": "vitepress dev",
     "docs:build": "vitepress build",
