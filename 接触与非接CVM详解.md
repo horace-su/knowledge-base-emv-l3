@@ -1,7 +1,7 @@
 # 接触与非接 CVM（持卡人验证方法）详解
 
 > CVM（Cardholder Verification Method）用于判断"出示卡的人是否是合法持卡人"。接触与非接的 CVM 机制差异很大——这是 TSE/ADVT/CDET 配置与用例的核心维度之一。
-> 关联：[M-TIP-TSE 问卷与终端配置参数](./M-TIP-TSE问卷与终端配置参数.md)（9F33 Byte2 CVM 能力）·[Visa-CDET 非接测试用例细分](./Visa-CDET非接测试用例细分.md)
+> 关联：[M-TIP-TSE 问卷与终端配置参数](./M-TIP-TSE问卷与终端配置参数.md)（9F33 Byte2 CVM 能力）·[Visa-CDET 非接测试用例细分](./Visa-CDET非接测试用例细分.md)·[EMV 免密免签判断流程](./EMV免密免签判断流程.md)（把本文机制收敛成"是否免密"的端到端决策链 + 分卡组最大化免密）
 
 ---
 

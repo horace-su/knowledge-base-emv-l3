@@ -92,6 +92,7 @@ export default defineConfig({
         items: [
           { text: '非接内核 Deep Dive', link: '/emv-contactless-kernel-deep-dive' },
           { text: '接触与非接 CVM 详解', link: '/接触与非接CVM详解' },
+          { text: 'EMV 免密免签判断流程', link: '/EMV免密免签判断流程' },
           { text: '终端配置：AID 与 CAPK', link: '/终端配置-AID与CAPK' },
           { text: 'AID/CAPK 全卡组织参考表', link: '/AID与CAPK全卡组织参考表' },
           { text: 'TAC/IAC/TVR 决策逻辑', link: '/TAC-IAC-TVR决策逻辑' },
@@ -149,6 +150,7 @@ export default defineConfig({
         items: [
           { text: '非接内核 Deep Dive', link: '/emv-contactless-kernel-deep-dive' },
           { text: '接触与非接 CVM 详解', link: '/接触与非接CVM详解' },
+          { text: 'EMV 免密免签判断流程', link: '/EMV免密免签判断流程' },
           { text: '终端配置：AID 与 CAPK', link: '/终端配置-AID与CAPK' },
           { text: 'AID 与 CAPK 全卡组织参考表', link: '/AID与CAPK全卡组织参考表' },
           { text: 'TAC / IAC / TVR 决策逻辑', link: '/TAC-IAC-TVR决策逻辑' },

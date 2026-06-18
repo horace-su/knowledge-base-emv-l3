@@ -7,6 +7,7 @@
 ### 一、基础概念
 - [EMV Contactless Kernel Deep Dive](./emv-contactless-kernel-deep-dive.md) —— 非接内核（Kernel 2/3/6…）与支付品牌映射
 - [接触与非接 CVM 详解](./接触与非接CVM详解.md) —— CVM List(8E)、CVM Results(9F34)、非接三大限额、CDCVM、Visa/MC 内核差异
+- [EMV 免密免签判断流程（No CVM 最大化）](./EMV免密免签判断流程.md) —— 免密免签三条路径(低额No CVM/CDCVM/联机)、接触8E与非接限额判定链、**分卡组(Visa TTQ-CTQ / MC 四限额 / Amex / Discover / JCB / 银联)免密入口对照** + 在合规边界内最大化免密的五个杠杆 + 决策流程图
 - [终端配置：AID 与 CAPK](./终端配置-AID与CAPK.md) —— AID(RID+PIX)/应用选择/部分匹配/TAC；CAPK(RID+Index)/ODA 证书链/测试vs生产密钥
 - [AID 与 CAPK 全卡组织参考表](./AID与CAPK全卡组织参考表.md) —— 全卡组织 AID 速查 + 生产/测试 CAPK 索引表（明确标记 测试 vs 真实）
 - [TAC / IAC / TVR 决策逻辑](./TAC-IAC-TVR决策逻辑.md) —— TVR(95) 位含义、Denial/Online/Default 判定、AAC/ARQC/TC、两次 GENERATE AC
