@@ -1,7 +1,7 @@
 # Mastercard TSE 配置项 与 Visa Global L3 测试用例
 
 > 本文深挖两件实操细节：① Mastercard M-TIP 中 TSE 如何按终端配置裁剪测试计划；② Visa L3 的具体测试用例构成（ADVT 接触 29 例 + CDET 非接）。
-> 关联：[Visa 与 Mastercard L3 认证深度解析](./Visa与Mastercard-L3认证深度解析.md)
+> 关联：[Visa 与 Mastercard L3 认证深度解析](../03-各卡组织L3认证/Visa与Mastercard-L3认证深度解析.md)
 
 ---
 

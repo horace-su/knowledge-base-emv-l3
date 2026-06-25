@@ -1,7 +1,7 @@
 # 接触与非接 CVM（持卡人验证方法）详解
 
 > CVM（Cardholder Verification Method）用于判断"出示卡的人是否是合法持卡人"。接触与非接的 CVM 机制差异很大——这是 TSE/ADVT/CDET 配置与用例的核心维度之一。
-> 关联：[M-TIP-TSE 问卷与终端配置参数](./M-TIP-TSE问卷与终端配置参数.md)（9F33 Byte2 CVM 能力）·[Visa-CDET 非接测试用例细分](./Visa-CDET非接测试用例细分.md)·[EMV 免密免签判断流程](./EMV免密免签判断流程.md)（把本文机制收敛成"是否免密"的端到端决策链 + 分卡组最大化免密）
+> 关联：[M-TIP-TSE 问卷与终端配置参数](../05-mastercard专题/M-TIP-TSE问卷与终端配置参数.md)（9F33 Byte2 CVM 能力）·[Visa-CDET 非接测试用例细分](../04-visa专题/Visa-CDET非接测试用例细分.md)·[EMV 免密免签判断流程](./EMV免密免签判断流程.md)（把本文机制收敛成"是否免密"的端到端决策链 + 分卡组最大化免密）
 
 ---
 
@@ -83,7 +83,7 @@
 
 > 逻辑链：金额 ≤ Floor → 可离线;Floor < 金额 ≤ CVM Limit → 联机但免 CVM;CVM Limit < 金额 ≤ Txn Limit → 联机 + 需 CVM;> Txn Limit → 不能非接。
 
-> 注：此为**通用三限额模型**。**Mastercard 进一步把"交易限额"拆成两个**（No On-device CVM / On-device CVM），即"四限额"——详见 [Mastercard 非接 CVM 机制与 FFI](./Mastercard非接CVM机制与FFI.md)。Visa 则以单一 CVM Required Limit 为主，CVM 判定走 [TTQ/CTQ](./Visa-TTQ-CTQ与CDCVM-Token化指示.md)。
+> 注：此为**通用三限额模型**。**Mastercard 进一步把"交易限额"拆成两个**（No On-device CVM / On-device CVM），即"四限额"——详见 [Mastercard 非接 CVM 机制与 FFI](../05-mastercard专题/Mastercard非接CVM机制与FFI.md)。Visa 则以单一 CVM Required Limit 为主，CVM 判定走 [TTQ/CTQ](../04-visa专题/Visa-TTQ-CTQ与CDCVM-Token化指示.md)。
 
 ### 3.2 CDCVM（Consumer Device CVM）
 

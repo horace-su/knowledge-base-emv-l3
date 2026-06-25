@@ -1,6 +1,6 @@
 # APDU / TLV 实测交易流程解读（字节级走读）
 
-> 把分散在各篇里的字节级知识，落到**一笔完整非接交易的 APDU 命令/响应序列**上逐条走读：每个 C-APDU（命令）、R-APDU（响应）、关键 TLV 的字节含义，以及它们最终如何汇成 [DE55](./ISO8583-DE55-逐标签实现清单.md) 上送发卡行。承接 [EMVCo Kernel 2 V2.11 规范要点](./EMVCo-Kernel2-V2.11规范要点.md)、[非接内核深潜](./emv-contactless-kernel-deep-dive.md)、[ODA 证书链字节级](./ODA证书链字节级.md)、[TAC/IAC/TVR 决策逻辑](./TAC-IAC-TVR决策逻辑.md)。
+> 把分散在各篇里的字节级知识，落到**一笔完整非接交易的 APDU 命令/响应序列**上逐条走读：每个 C-APDU（命令）、R-APDU（响应）、关键 TLV 的字节含义，以及它们最终如何汇成 [DE55](./ISO8583-DE55-逐标签实现清单.md) 上送发卡行。承接 [EMVCo Kernel 2 V2.11 规范要点](../01-基础概念/EMVCo-Kernel2-V2.11规范要点.md)、[非接内核深潜](../01-基础概念/emv-contactless-kernel-deep-dive.md)、[ODA 证书链字节级](../01-基础概念/ODA证书链字节级.md)、[TAC/IAC/TVR 决策逻辑](../01-基础概念/TAC-IAC-TVR决策逻辑.md)。
 >
 > ⚠️ **§〇–§七的 APDU 字节为依据 EMV Book 1/3 + Book C-2 构造的代表性「合成」示例**（一笔**非接** qVSDC/Kernel 2 交易），用于讲解结构与解析方法。**§八是真实抓包实证**——来自 FIME Brand Test Tool 的一次 M-TIP 测试会话（接触 M/Chip 交易），APDU 与主机 DE55 一一对应。两者配合：先用合成例学解析法，再用真实例验证。
 
@@ -48,7 +48,7 @@ CLA INS P1 P2  Lc=0E(14)        ASCII of 2PAY.SYS.DDF01
         9F2A 01 02             Kernel Identifier = 02 (K2=Mastercard)
 90 00
 ```
-- `4F` = 候选 AID；`9F2A` Kernel Identifier 决定走哪个内核（`02`=K2 MC、`03`=K3 Visa、`06`=K6 Discover——见 [各卡组织 L3 要求](./各卡组织L3认证测试要求一览.md)）。
+- `4F` = 候选 AID；`9F2A` Kernel Identifier 决定走哪个内核（`02`=K2 MC、`03`=K3 Visa、`06`=K6 Discover——见 [各卡组织 L3 要求](../03-各卡组织L3认证/各卡组织L3认证测试要求一览.md)）。
 - 终端按 `87` 优先级 + 自身支持列表做**最终选择**。
 
 ---
@@ -108,7 +108,7 @@ PDOL 数据示例拼接（对应上面的 PDOL 清单）：
   ...（Kernel 2 也可在此直接返回部分快速路径数据）
 90 00
 ```
-- **AIP `82`** 逐位见 [TAC/IAC/TVR](./TAC-IAC-TVR决策逻辑.md) 与 [ODA 证书链](./ODA证书链字节级.md)：bit 表 SDA/DDA/CDA/CVM/发卡行认证支持。
+- **AIP `82`** 逐位见 [TAC/IAC/TVR](../01-基础概念/TAC-IAC-TVR决策逻辑.md) 与 [ODA 证书链](../01-基础概念/ODA证书链字节级.md)：bit 表 SDA/DDA/CDA/CVM/发卡行认证支持。
 - **AFL `94`**：每 4 字节一组 = `SFI(5bit)<<3 | 首记录号 | 末记录号 | 参与离线认证的记录数`。
 
 ---
@@ -141,14 +141,14 @@ PDOL 数据示例拼接（对应上面的 PDOL 清单）：
   8F 01 05                  CA Public Key Index → 定位 CAPK
 90 00
 ```
-- `8F` CA Public Key Index → 在终端 [AID 与 CAPK](./终端配置-AID与CAPK.md) 表里定位 CAPK；`90`/`9F46` 等证书逐字节恢复见 [ODA 证书链字节级](./ODA证书链字节级.md)。
+- `8F` CA Public Key Index → 在终端 [AID 与 CAPK](../01-基础概念/终端配置-AID与CAPK.md) 表里定位 CAPK；`90`/`9F46` 等证书逐字节恢复见 [ODA 证书链字节级](../01-基础概念/ODA证书链字节级.md)。
 - `8C` **CDOL1** 与 PDOL 同理，是 GENERATE AC 命令的数据清单。
 
 ---
 
 ## 五、第 5 步：GENERATE AC（产出密文，决定联机/离线）
 
-终端完成 TVR 评估（见 [TAC/IAC/TVR](./TAC-IAC-TVR决策逻辑.md)）后，按 CDOL1 拼数据请求密文。
+终端完成 TVR 评估（见 [TAC/IAC/TVR](../01-基础概念/TAC-IAC-TVR决策逻辑.md)）后，按 CDOL1 拼数据请求密文。
 
 **C-APDU**
 ```
@@ -205,7 +205,7 @@ DE55 = 9F26(ARQC) 9F27(CID) 9F10(IAD) 9F37(UN) 9F36(ATC)
 > **来源**：FIME Brand Test Tool 5.8.0 导出的 Mastercard M-TIP TSE 测试会话（`.tsez`，已签名）。同一笔交易在两处被记录：卡侧 APDU 日志 `APDU_2026-05-26_16-20-43`（CardId=**M-TIP06** 测试卡）与主机侧 ISO 8583 报文（MTI **0100**，`ARQCValidated=true`）。
 > **脱敏说明**：使用 EMVCo/Mastercard **测试卡**（PAN `5413330089020011` 属测试卡段），无真实持卡人 PII；原始 `.tsez` 在 `fime-btt-projects/`（已 `.gitignore`，不入库）。**判定锚点**：卡侧 GENERATE AC 产出的 ARQC `DA06CD7EAF2FDEEA` 与主机 DE55 内 `9F26` 完全一致 → 这确实是同一笔。
 
-这是一笔**接触**（PSE=`1PAY.SYS.DDF01`）M/Chip **联机**交易，含**离线 DDA + 离线明文 PIN**，最终走 ARQC 联机、再二次 GENERATE AC 取 TC。币种 **SGD（`0702`）/ 新加坡终端**——与 [银联国际 QuickPass 与 HK/SG 特殊 CVM](./银联国际-QuickPass-L3配置与HK-SG特殊CVM.md) 同属 702 受理环境。
+这是一笔**接触**（PSE=`1PAY.SYS.DDF01`）M/Chip **联机**交易，含**离线 DDA + 离线明文 PIN**，最终走 ARQC 联机、再二次 GENERATE AC 取 TC。币种 **SGD（`0702`）/ 新加坡终端**——与 [银联国际 QuickPass 与 HK/SG 特殊 CVM](../03-各卡组织L3认证/银联国际-QuickPass-L3配置与HK-SG特殊CVM.md) 同属 702 受理环境。
 
 ### 8.1 卡侧 APDU 序列（精简标注，真实字节）
 
@@ -266,7 +266,7 @@ R: 77 29 9f27 01 40 .. 9f26 08 4696C0FF329D4AF8 ..  CID=40 → TC（联机批准
 | `9F10` | 18 | `0110A5000F04…FF` | IAD（首字节 `01`=CVN 等发卡行风控） |
 | `9F37` | 4 | `86E7E96C` | UN（= INTERNAL AUTHENTICATE 的挑战值，前后一致） |
 | `9F36` | 2 | `0027` | ATC = 39 |
-| `95`   | 5 | `0000008000` | TVR：字节4 `80` = **超楼层限额 → 转联机**（见 [TAC/IAC/TVR](./TAC-IAC-TVR决策逻辑.md)） |
+| `95`   | 5 | `0000008000` | TVR：字节4 `80` = **超楼层限额 → 转联机**（见 [TAC/IAC/TVR](../01-基础概念/TAC-IAC-TVR决策逻辑.md)） |
 | `9A`   | 3 | `260526` | 交易日期 2026-05-26 |
 | `9C`   | 1 | `00` | 交易类型 = 消费 |
 | `9F02` | 6 | `000000004000` | 金额 = 40.00 |
@@ -285,9 +285,9 @@ R: 77 29 9f27 01 40 .. 9f26 08 4696C0FF329D4AF8 ..  CID=40 → TC（联机批准
 ### 8.3 这笔实证印证了哪些前文论断
 
 1. **同一交易跨层一致**：卡侧 `9F26/9F27/9F10/9F37/9F36` 与主机 DE55 逐字节相同——验证了"内核产出 → 终端打包进 DE55 → 主机上送"的链路（[DE55 框架篇 §二](./ISO8583-字段55-跨卡组织要求.md)）。
-2. **TVR↔决策自洽**：`95` 字节4=`80`（超楼层限额）解释了为何 `9F27=80` 走 ARQC 联机（[TAC/IAC/TVR](./TAC-IAC-TVR决策逻辑.md)）。
+2. **TVR↔决策自洽**：`95` 字节4=`80`（超楼层限额）解释了为何 `9F27=80` 走 ARQC 联机（[TAC/IAC/TVR](../01-基础概念/TAC-IAC-TVR决策逻辑.md)）。
 3. **AIP↔命令自洽**：`82=3000`（DDA+CVM）对应卡侧确有 `00 88`(DDA) 与 `00 20`(PIN)——能力位与实际命令必须对得上，这正是 L3 的核对点。
 4. **DE55 标签集是动态的**：本笔无 `9F6E`/`9F24`（非 Token、无 FFI），印证 §六"内核只放 present 的标签"。
-5. **新加坡(702)受理**：与 [HK/SG 特殊 CVM](./银联国际-QuickPass-L3配置与HK-SG特殊CVM.md) 的 702 环境呼应，可作该篇 CVM 限额讨论的真实数据点。
+5. **新加坡(702)受理**：与 [HK/SG 特殊 CVM](../03-各卡组织L3认证/银联国际-QuickPass-L3配置与HK-SG特殊CVM.md) 的 702 环境呼应，可作该篇 CVM 限额讨论的真实数据点。
 
 > 复现方式：`unzip` 该 `.tsez` 后，APDU 日志为 `APDU_*.L3-cardlog.xml`（`<CommandResponse>` 节点含 `Command`/`Response` 十六进制），主机报文为 `NET_EMVCo_*.xml`（`<Field ID="NET.0100.DE.055">` 的 `<FieldBinary>` 即 DE55）。每个日志带 XML 数字签名（`Collis RSA Log Key`），可验未篡改。

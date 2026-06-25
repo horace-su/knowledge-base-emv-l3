@@ -11,10 +11,10 @@ hero:
   actions:
     - theme: brand
       text: 开始阅读 →
-      link: /emv-contactless-kernel-deep-dive
+      link: /01-基础概念/emv-contactless-kernel-deep-dive
     - theme: alt
       text: 各卡组织认证一览
-      link: /各卡组织L3认证测试要求一览
+      link: /03-各卡组织L3认证/各卡组织L3认证测试要求一览
     - theme: alt
       text: GitHub
       link: https://github.com/horace-su/knowledge-base-emv-l3
@@ -23,32 +23,32 @@ features:
   - icon: 🧩
     title: 基础概念
     details: 非接内核（K2/K3/K6…）、CVM List(8E) / TVR(95)、AID/CAPK、ODA 证书链(90/9F46)、TAC/IAC 决策逻辑 —— 把 L1→L2→L3 的链路讲透。
-    link: /emv-contactless-kernel-deep-dive
+    link: /01-基础概念/emv-contactless-kernel-deep-dive
     linkText: 进入基础概念
   - icon: 🛠️
     title: FIME 测试工具
     details: 旗舰 L3 产品 BTT 的能力矩阵、卡组织覆盖、.tpp 工程包结构，以及 Amex/Discover/Mastercard/Visa 真实测试计划的版本与用例编号体系。
-    link: /FIME-L3测试工具深度解析
+    link: /02-fime测试工具/FIME-L3测试工具深度解析
     linkText: 了解 FIME 工具链
   - icon: 🏦
     title: 六大卡组织 L3 认证
     details: Visa Global L3 Test Set、Mastercard M-TIP、Amex AEIPS/Expresspay、Discover D-PAS、JCB TCI、银联国内(国密)+国际 QuickPass 全覆盖。
-    link: /各卡组织L3认证测试要求一览
+    link: /03-各卡组织L3认证/各卡组织L3认证测试要求一览
     linkText: 查看认证要求总表
   - icon: 💳
     title: Visa 专题
     details: 取代 ADVT/CDET 的 Global L3 Test Set、CDET 17 个非接用例细分、TTQ(9F66)/CTQ(9F6C) 位级解析与 Apple Pay/Google Pay 的 CDCVM 指示。
-    link: /Visa-Global-L3-Test-Set与qVSDC-DM
+    link: /04-visa专题/Visa-Global-L3-Test-Set与qVSDC-DM
     linkText: 进入 Visa 专题
   - icon: 🔴
     title: Mastercard 专题
     details: M-TIP TSE 操作流程与问卷动态裁剪、问卷字段→EMV 对象映射(9F35/9F33/9F40)、Kernel 2 四大限额与 FFI(9F6E) 品牌差异。
-    link: /M-TIP-TSE配置详解
+    link: /05-mastercard专题/M-TIP-TSE配置详解
     linkText: 进入 Mastercard 专题
   - icon: 📡
     title: 报文层（主机侧）
     details: ISO 8583 报文域全景 + DE22 录入方式 / 技术回退、DE55 逐标签字节级实现清单、APDU/TLV 实测走读，以及主机认证与 L3 重测触发矩阵。
-    link: /ISO8583-报文域全景与POS录入方式
+    link: /06-报文层/ISO8583-报文域全景与POS录入方式
     linkText: 进入报文层
 ---
 

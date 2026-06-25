@@ -123,7 +123,7 @@
 | American Express | A000000025 | 0A 等 | Amex 测试密钥 |
 | Discover/Diners | A000000152 | 测试索引随 DGN 测试包 | —— |
 | JCB | A000000065 | 测试索引随 JCB 测试包 | —— |
-| UnionPay | A000000333 | 08 / 09 / 0B（1152/1408/1984，指数 03） | 实测某 UPI 测试配置（见 [银联国际 QuickPass L3 配置](./银联国际-QuickPass-L3配置与HK-SG特殊CVM.md)） |
+| UnionPay | A000000333 | 08 / 09 / 0B（1152/1408/1984，指数 03） | 实测某 UPI 测试配置（见 [银联国际 QuickPass L3 配置](../03-各卡组织L3认证/银联国际-QuickPass-L3配置与HK-SG特殊CVM.md)） |
 | Interac | A000000277 | 测试索引随 Interac 测试包 | —— |
 
 > 以上"业界常用"索引来自 EMV 测试社区经验，**未在本次会话独立核实到官方文档**。权威来源应为各卡组织测试工具包内附的 CAPK，或 Worldpay《EMV Network Keys: Test》（已归档于 `web-docs/`，但为图片型 PDF，本机无法文本解析）。**实际配置务必以官方测试密钥文件为准。**

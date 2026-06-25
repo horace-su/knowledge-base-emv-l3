@@ -1,6 +1,6 @@
 # 终端配置：AID 与 CAPK
 
-> 这是 L3/TSE 配置中**最常见的疏漏点**（见 [M-TIP-TSE 问卷与终端配置参数](./M-TIP-TSE问卷与终端配置参数.md)："AID + CAPK 必须完整声明"）。本文系统讲清：终端如何配置 **AID（应用标识符）** 与 **CAPK（CA 公钥）**，以及它们在应用选择与离线认证（ODA）中的作用。
+> 这是 L3/TSE 配置中**最常见的疏漏点**（见 [M-TIP-TSE 问卷与终端配置参数](../05-mastercard专题/M-TIP-TSE问卷与终端配置参数.md)："AID + CAPK 必须完整声明"）。本文系统讲清：终端如何配置 **AID（应用标识符）** 与 **CAPK（CA 公钥）**，以及它们在应用选择与离线认证（ODA）中的作用。
 > 关联：[接触与非接 CVM 详解](./接触与非接CVM详解.md)（ODA 即 SDA/DDA/CDA）
 
 ---
@@ -47,7 +47,7 @@ AID = RID (5 字节 / 10 hex) + PIX (可选, 至多 11 字节)
 | **Terminal Floor Limit（9F1B）** | 地板限额 |
 | **Target % / Threshold / Max Target %** | 随机/偏置联机选择参数 |
 | **DDOL / TDOL** | 动态/交易认证数据对象列表（DDA/TC 用） |
-| **TACs、币种、国家代码** | 见 [9F33/9F40/9F1A 等终端数据](./M-TIP-TSE问卷与终端配置参数.md) |
+| **TACs、币种、国家代码** | 见 [9F33/9F40/9F1A 等终端数据](../05-mastercard专题/M-TIP-TSE问卷与终端配置参数.md) |
 
 ## 1.5 全匹配 vs 部分匹配（Partial Selection）
 
@@ -105,7 +105,7 @@ CAPK（终端内，按 RID+Index 选取）
 
 ## 2.4 测试密钥 vs 生产密钥
 
-- **L3 测试**：加载卡组织提供的**测试 CA 公钥**（如 Visa 1408/1536 位测试 CAPK，见 [CDET 用例](./Visa-CDET非接测试用例细分.md)）。
+- **L3 测试**：加载卡组织提供的**测试 CA 公钥**（如 Visa 1408/1536 位测试 CAPK，见 [CDET 用例](../04-visa专题/Visa-CDET非接测试用例细分.md)）。
 - **生产部署**：加载**生产 CAPK**。
 - ⚠️ 两者不可混用：测试卡用测试密钥签名，生产卡用生产密钥；装错则 ODA 失败。
 

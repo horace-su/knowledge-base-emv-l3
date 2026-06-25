@@ -1,7 +1,7 @@
 # Mastercard 非接（Kernel 2）CVM 机制 与 FFI（9F6E）
 
-> 续 [Visa TTQ/CTQ 与 CDCVM Token 化指示](./Visa-TTQ-CTQ与CDCVM-Token化指示.md)。Visa（Kernel 3）用 TTQ/CTQ 位级协商；**Mastercard（Kernel 2 / PayPass / M/Chip Contactless）不用 TTQ/CTQ，改用一组"读卡器限额 + CVM Capability"驱动**。本文解析该机制，并补充 **FFI（9F6E）** 的品牌差异与位级结构。
-> 关联：[接触与非接 CVM 详解](./接触与非接CVM详解.md)
+> 续 [Visa TTQ/CTQ 与 CDCVM Token 化指示](../04-visa专题/Visa-TTQ-CTQ与CDCVM-Token化指示.md)。Visa（Kernel 3）用 TTQ/CTQ 位级协商；**Mastercard（Kernel 2 / PayPass / M/Chip Contactless）不用 TTQ/CTQ，改用一组"读卡器限额 + CVM Capability"驱动**。本文解析该机制，并补充 **FFI（9F6E）** 的品牌差异与位级结构。
+> 关联：[接触与非接 CVM 详解](../01-基础概念/接触与非接CVM详解.md)
 
 ---
 

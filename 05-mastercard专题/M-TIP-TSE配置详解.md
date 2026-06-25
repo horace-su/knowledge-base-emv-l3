@@ -1,7 +1,7 @@
 # Mastercard M-TIP TSE 配置详解
 
-> 在 [MC-TSE配置项与Visa-L3测试用例](./MC-TSE配置项与Visa-L3测试用例.md) 基础上，本文专门细化 TSE（Test Selection Engine）的**操作流程、问卷结构、动态裁剪逻辑与结果判定**。
-> 关联：[Visa 与 Mastercard L3 认证深度解析](./Visa与Mastercard-L3认证深度解析.md)
+> 在 [MC-TSE配置项与Visa-L3测试用例](../04-visa专题/MC-TSE配置项与Visa-L3测试用例.md) 基础上，本文专门细化 TSE（Test Selection Engine）的**操作流程、问卷结构、动态裁剪逻辑与结果判定**。
+> 关联：[Visa 与 Mastercard L3 认证深度解析](../03-各卡组织L3认证/Visa与Mastercard-L3认证深度解析.md)
 
 ---
 

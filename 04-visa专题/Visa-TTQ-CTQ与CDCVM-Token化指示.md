@@ -1,6 +1,6 @@
 # Visa TTQ/CTQ 位级解析 与 CDCVM 在 Token 化中的指示机制
 
-> 续 [接触与非接 CVM 详解](./接触与非接CVM详解.md)。本文聚焦 Visa qVSDC 非接的两个关键控制字段 **TTQ(9F66)/CTQ(9F6C)** 的位级定义，以及 **Apple Pay / Google Pay 等 Token 化钱包如何向终端/发卡行指示 CDCVM 已完成**。
+> 续 [接触与非接 CVM 详解](../01-基础概念/接触与非接CVM详解.md)。本文聚焦 Visa qVSDC 非接的两个关键控制字段 **TTQ(9F66)/CTQ(9F6C)** 的位级定义，以及 **Apple Pay / Google Pay 等 Token 化钱包如何向终端/发卡行指示 CDCVM 已完成**。
 
 ---
 

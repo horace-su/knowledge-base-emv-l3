@@ -1,6 +1,6 @@
 # ODA 证书链字节级（SDA / DDA / CDA）
 
-> 深入离线数据认证（Offline Data Authentication）的**证书链与恢复格式**。承接 [终端配置：AID 与 CAPK](./终端配置-AID与CAPK.md)（CAPK 是链的根）与 [接触与非接 CVM 详解](./接触与非接CVM详解.md)。国密版本见 [银联国内 PBOC 3.0 与国密](./银联国内-PBOC3.0与国密算法.md)。
+> 深入离线数据认证（Offline Data Authentication）的**证书链与恢复格式**。承接 [终端配置：AID 与 CAPK](./终端配置-AID与CAPK.md)（CAPK 是链的根）与 [接触与非接 CVM 详解](./接触与非接CVM详解.md)。国密版本见 [银联国内 PBOC 3.0 与国密](../03-各卡组织L3认证/银联国内-PBOC3.0与国密算法.md)。
 
 ---
 
@@ -124,7 +124,7 @@ ICC Public Key Certificate（Tag 9F46）   ──► 恢复出 IC 卡公钥
 - **余数标签**:模数放不下证书时,Issuer 余数在 `92`、ICC 余数在 `9F48`——拼接时别漏。
 - **UN(9F37)是 DDA/CDA 抗重放关键**:终端每次给不同 UN,卡签进 SDAD;测试需验证 UN 确实随机且被纳入。
 - **CDA 绑定 AC**:CDA 用例要验证动态签名确实覆盖了应用密文;这是比 DDA 更强的防替换保证。
-- **国密版**:PBOC 3.0 国密 ODA 用 SM2 验签 + SM3 哈希,标签沿用但算法不同(见 [银联国内 PBOC](./银联国内-PBOC3.0与国密算法.md))。
+- **国密版**:PBOC 3.0 国密 ODA 用 SM2 验签 + SM3 哈希,标签沿用但算法不同(见 [银联国内 PBOC](../03-各卡组织L3认证/银联国内-PBOC3.0与国密算法.md))。
 
 ---
 

@@ -1,8 +1,8 @@
 # 终端配置：各内核数据元参考（D-PAS L2 / Sunmi SDK 提取）
 
-> 一份**跨内核**的终端侧配置数据元清单：同一终端 SDK 为 EMV 接触、Visa(PayWave)、Mastercard(Paypass)、银联(qPBOC)、Amex(AE)、Discover(DPAS)、JCB、MIR、Interac(FLASH) 等内核分别定义的标准 + 专有(DF81xx)配置标签。补充 [终端配置：AID 与 CAPK](./终端配置-AID与CAPK.md)、[M-TIP TSE 问卷与终端配置参数](./M-TIP-TSE问卷与终端配置参数.md)、[EMVCo Kernel 2 V2.11 要点](./EMVCo-Kernel2-V2.11规范要点.md)。
+> 一份**跨内核**的终端侧配置数据元清单：同一终端 SDK 为 EMV 接触、Visa(PayWave)、Mastercard(Paypass)、银联(qPBOC)、Amex(AE)、Discover(DPAS)、JCB、MIR、Interac(FLASH) 等内核分别定义的标准 + 专有(DF81xx)配置标签。补充 [终端配置：AID 与 CAPK](./终端配置-AID与CAPK.md)、[M-TIP TSE 问卷与终端配置参数](../05-mastercard专题/M-TIP-TSE问卷与终端配置参数.md)、[EMVCo Kernel 2 V2.11 要点](./EMVCo-Kernel2-V2.11规范要点.md)。
 >
-> 来源：*EMVL2 Data Elements V1.0.7*（终端内核 SDK 数据元手册，归档于 [`web-docs/`](./web-docs/)）。标准 EMV 标签为通用知识；`DF81xx` 为内核/厂商**专有配置标签**，不同 L2 内核实现取值可能不同，精确语义以对应内核规范为准。
+> 来源：*EMVL2 Data Elements V1.0.7*（终端内核 SDK 数据元手册，归档于 [`web-docs/`](../web-docs)）。标准 EMV 标签为通用知识；`DF81xx` 为内核/厂商**专有配置标签**，不同 L2 内核实现取值可能不同，精确语义以对应内核规范为准。
 
 ---
 
@@ -24,7 +24,7 @@
 | **Byte 2** | Cash Deposit … |
 | Byte 3–5 | 数据输入/输出能力等 |
 
-> 这两个标签正是 [Sunmi T6F10 报告](./L3认证实例-Sunmi-T6F10终端配置剖析.md) 里 `9F33 Byte1/2/3` 报备值的定义来源。
+> 这两个标签正是 [Sunmi T6F10 报告](../07-实测案例/L3认证实例-Sunmi-T6F10终端配置剖析.md) 里 `9F33 Byte1/2/3` 报备值的定义来源。
 
 ---
 
@@ -49,14 +49,14 @@
 | — | RRR（Relay Resistance 相关）、Terminal Risk Management Data |
 
 ### Visa（PayWave / qVSDC）
-- `9F66` **TTQ**（4 字节；byte2 b8–b7 为瞬态值，交易开始清零，其余为静态值）—— 位级见 [Visa TTQ/CTQ](./Visa-TTQ-CTQ与CDCVM-Token化指示.md)。
+- `9F66` **TTQ**（4 字节；byte2 b8–b7 为瞬态值，交易开始清零，其余为静态值）—— 位级见 [Visa TTQ/CTQ](../04-visa专题/Visa-TTQ-CTQ与CDCVM-Token化指示.md)。
 - `DF8167` Application Usage Control configuration。
 
 ### 银联（qPBOC）
-- `9F66` TTQ（银联 QuickPass 复用 TTQ 对象，配置见 [银联国际 QuickPass](./银联国际-QuickPass-L3配置与HK-SG特殊CVM.md)）。
+- `9F66` TTQ（银联 QuickPass 复用 TTQ 对象，配置见 [银联国际 QuickPass](../03-各卡组织L3认证/银联国际-QuickPass-L3配置与HK-SG特殊CVM.md)）。
 
 ### Amex（AE / Expresspay）
-- `9F6D` Contactless Reader Capabilities、`9F6E` **Enhanced Contactless Reader Capabilities**（FFI 相关，见 [Mastercard 非接 CVM 与 FFI](./Mastercard非接CVM机制与FFI.md) 对 `9F6E` 的品牌差异说明）。
+- `9F6D` Contactless Reader Capabilities、`9F6E` **Enhanced Contactless Reader Capabilities**（FFI 相关，见 [Mastercard 非接 CVM 与 FFI](../05-mastercard专题/Mastercard非接CVM机制与FFI.md) 对 `9F6E` 的品牌差异说明）。
 - `DF8167` DRL Sets、`DF8168` 支持延迟授权标志、`DF8169` 无法联机标志、`DF8170` UN range。
 
 ### Discover（DPAS）

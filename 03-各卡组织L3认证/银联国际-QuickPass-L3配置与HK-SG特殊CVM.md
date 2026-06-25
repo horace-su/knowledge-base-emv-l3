@@ -1,8 +1,8 @@
 # 银联国际（UPI）QuickPass L3 配置与 HK/SG 特殊 CVM 规则
 
-> 银联国际终端集成（UAC 接触 / QuickPass 非接）L3 测试前的终端配置要求，以及香港(344)/新加坡(702)两地的非接 CVM 特殊规则。承接 [JCB 与银联 L3 认证深度解析](./JCB与银联-L3认证深度解析.md)、[银联国内 PBOC 3.0 与国密](./银联国内-PBOC3.0与国密算法.md)、[Visa TTQ/CTQ 与 CDCVM](./Visa-TTQ-CTQ与CDCVM-Token化指示.md)、[接触与非接 CVM 详解](./接触与非接CVM详解.md)。
+> 银联国际终端集成（UAC 接触 / QuickPass 非接）L3 测试前的终端配置要求，以及香港(344)/新加坡(702)两地的非接 CVM 特殊规则。承接 [JCB 与银联 L3 认证深度解析](./JCB与银联-L3认证深度解析.md)、[银联国内 PBOC 3.0 与国密](./银联国内-PBOC3.0与国密算法.md)、[Visa TTQ/CTQ 与 CDCVM](../04-visa专题/Visa-TTQ-CTQ与CDCVM-Token化指示.md)、[接触与非接 CVM 详解](../01-基础概念/接触与非接CVM详解.md)。
 >
-> 来源：UPI *IC Card Testing Guide for Acquirers V202409*（§1.4）、*QuickPass Testing Guide for Acquirers V202409*（Ch.4–5），以及一份面向商户的 HK&SG 特殊处理规则说明（归档于 [`web-docs/`](./web-docs/)，见 [`SOURCES.md`](./web-docs/SOURCES.md)）。
+> 来源：UPI *IC Card Testing Guide for Acquirers V202409*（§1.4）、*QuickPass Testing Guide for Acquirers V202409*（Ch.4–5），以及一份面向商户的 HK&SG 特殊处理规则说明（归档于 [`web-docs/`](../web-docs)，见 [`SOURCES.md`](../web-docs/SOURCES.md)）。
 
 ---
 
@@ -16,7 +16,7 @@
 | `A000000333010106` | UnionPay ECash（电子现金） | 仅香港/澳门 |
 | `A000000333010108` | UnionPay Common AID | 仅美国 |
 
-> RID `A000000333` 与 [AID 与 CAPK 全卡组织参考表](./AID与CAPK全卡组织参考表.md) 一致。注意上节 [实例报告](./L3认证实例-Sunmi-T6F10终端配置剖析.md) 里 Discover 终端**主动排除**了这些 UPI AID——UPI 走独立 L3 程序。
+> RID `A000000333` 与 [AID 与 CAPK 全卡组织参考表](../01-基础概念/AID与CAPK全卡组织参考表.md) 一致。注意上节 [实例报告](../07-实测案例/L3认证实例-Sunmi-T6F10终端配置剖析.md) 里 Discover 终端**主动排除**了这些 UPI AID——UPI 走独立 L3 程序。
 
 ---
 
@@ -26,7 +26,7 @@
 |------|----|----|
 | Application Priority Indicator | `00` | |
 | Application Version Number | `0x0030` | AVN |
-| **TAC – Denial** | `00 00 00 00 00` | 见 [TAC/IAC/TVR](./TAC-IAC-TVR决策逻辑.md) |
+| **TAC – Denial** | `00 00 00 00 00` | 见 [TAC/IAC/TVR](../01-基础概念/TAC-IAC-TVR决策逻辑.md) |
 | **TAC – Online** | `DC 40 04 F8 00` | |
 | **TAC – Default** | `D8 40 00 A8 00` | |
 | Terminal Floor Limit | `00000000` | 设 0 → 全部联机 |
@@ -38,7 +38,7 @@
 
 ### UPI **测试环境** CA 公钥（RID `A000000333`）
 
-> ⚠️ **测试密钥，非生产**。生产 CAPK 必须以官方密钥文件为准（参见 [AID 与 CAPK 全卡组织参考表](./AID与CAPK全卡组织参考表.md) 对测试 vs 真实密钥的强调）。
+> ⚠️ **测试密钥，非生产**。生产 CAPK 必须以官方密钥文件为准（参见 [AID 与 CAPK 全卡组织参考表](../01-基础概念/AID与CAPK全卡组织参考表.md) 对测试 vs 真实密钥的强调）。
 
 | Index | 长度 (bits) | Exponent | Hash 前缀 |
 |-------|-------------|----------|-----------|
@@ -52,7 +52,7 @@
 
 ## 三、QuickPass（非接）附加参数 — TTQ `9F66`
 
-在接触参数基础上，非接还需配置 **Terminal Transaction Qualifier（`9F66`）**（位级解析见 [Visa TTQ/CTQ](./Visa-TTQ-CTQ与CDCVM-Token化指示.md)，UPI QuickPass 复用同一对象）：
+在接触参数基础上，非接还需配置 **Terminal Transaction Qualifier（`9F66`）**（位级解析见 [Visa TTQ/CTQ](../04-visa专题/Visa-TTQ-CTQ与CDCVM-Token化指示.md)，UPI QuickPass 复用同一对象）：
 
 | Byte | Bit | POS/CAT/mPOS | 含义 |
 |------|-----|--------------|------|

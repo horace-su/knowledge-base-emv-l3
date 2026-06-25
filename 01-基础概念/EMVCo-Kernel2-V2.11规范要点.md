@@ -1,8 +1,8 @@
 # EMVCo Book C-2 Kernel 2 规范要点（V2.11, June 2023）
 
-> 从 EMVCo 权威规范提取 Mastercard 非接内核（Kernel 2）的架构与关键数据结构：进程模型、Data Exchange 信号、Outcome Parameter Set、Data Record、四大读卡器限额、Relay Resistance Protocol(RRP) 与 Kernel Configuration。深化 [EMV Contactless Kernel Deep Dive](./emv-contactless-kernel-deep-dive.md)、[Mastercard 非接 CVM 机制与 FFI](./Mastercard非接CVM机制与FFI.md)，并为 [DE55 跨卡组织要求](./ISO8583-字段55-跨卡组织要求.md) 提供"数据从何而来"。
+> 从 EMVCo 权威规范提取 Mastercard 非接内核（Kernel 2）的架构与关键数据结构：进程模型、Data Exchange 信号、Outcome Parameter Set、Data Record、四大读卡器限额、Relay Resistance Protocol(RRP) 与 Kernel Configuration。深化 [EMV Contactless Kernel Deep Dive](./emv-contactless-kernel-deep-dive.md)、[Mastercard 非接 CVM 机制与 FFI](../05-mastercard专题/Mastercard非接CVM机制与FFI.md)，并为 [DE55 跨卡组织要求](../06-报文层/ISO8583-字段55-跨卡组织要求.md) 提供"数据从何而来"。
 >
-> 来源：EMVCo *Contactless Book C-2, Kernel 2 Specification v2.11*（2023-06，归档于 [`web-docs/`](./web-docs/)，见 [`SOURCES.md`](./web-docs/SOURCES.md)）。Kernel 2 = **支付品牌 Mastercard**（见 [内核映射](./emv-contactless-kernel-deep-dive.md)）。
+> 来源：EMVCo *Contactless Book C-2, Kernel 2 Specification v2.11*（2023-06，归档于 [`web-docs/`](../web-docs)，见 [`SOURCES.md`](../web-docs/SOURCES.md)）。Kernel 2 = **支付品牌 Mastercard**（见 [内核映射](./emv-contactless-kernel-deep-dive.md)）。
 
 ---
 
@@ -27,7 +27,7 @@ Reader 侧由若干"进程"协作：
 | `DEK` | 内核请求终端**补充**数据 / 回吐数据（Data Exchange Kernel→Terminal） |
 | `OUT` | 交易结束输出：**Outcome Parameter Set + Data Record(if any) + Discretionary Data + User Interface Request Data(if any)** |
 
-> Data Exchange 机制（DET/DEK）让终端在交易过程中按需向内核请求额外标签（`Tags To Read`），或注入配置数据——这是 DE55 里出现"附加标签"的底层通道（见 [DE55](./ISO8583-字段55-跨卡组织要求.md)）。
+> Data Exchange 机制（DET/DEK）让终端在交易过程中按需向内核请求额外标签（`Tags To Read`），或注入配置数据——这是 DE55 里出现"附加标签"的底层通道（见 [DE55](../06-报文层/ISO8583-字段55-跨卡组织要求.md)）。
 
 ---
 
@@ -50,7 +50,7 @@ Outcome 还携带 CVM 指示（如 `'CVM' := ONLINE PIN` 等价于"byte4 bit4-1 
 ## 三、Data Record 与 Discretionary Data
 
 - **Data Record（`FF8105`）**：随 Outcome 返回的 **TLV 列表**——"交易完成时返回的 EMV 数据对象清单"。EMV 模式见 Table 4.6、磁条模式见 Table 4.7。构造逻辑：`FOR every Data Object IF IsPresent(Tag) THEN AddToList`，**只放当前存在的标签**。
-- 这就是 DE55 的"原料表"：`9F26/9F27/9F10/9F36/9F37/95/82/5A/9F33/9F34/9F1A/5F2A/9F02/9C/9A…`，v2.11 起新增 **Token Requestor ID `9F19`** 与 **Payment Account Reference `9F24`**（详表见 [DE55 §二](./ISO8583-字段55-跨卡组织要求.md)）。
+- 这就是 DE55 的"原料表"：`9F26/9F27/9F10/9F36/9F37/95/82/5A/9F33/9F34/9F1A/5F2A/9F02/9C/9A…`，v2.11 起新增 **Token Requestor ID `9F19`** 与 **Payment Account Reference `9F24`**（详表见 [DE55 §二](../06-报文层/ISO8583-字段55-跨卡组织要求.md)）。
 - **Discretionary Data（`DF8106` 等）**：OUT 中**总会**包含，内容随交易 profile 变化，常用于异常/诊断数据（含 bitmap 表达，Book C-2 §4.5.4）。
 - **Data To Send（`FF8104`）**：内核经 DEK 累计发给终端的数据对象。
 
@@ -58,7 +58,7 @@ Outcome 还携带 CVM 指示（如 `'CVM' := ONLINE PIN` 等价于"byte4 bit4-1 
 
 ## 四、四大读卡器限额（Reader Limits）
 
-Kernel 2 用四个限额决定交易路径（与 [Mastercard 非接 CVM 与 FFI](./Mastercard非接CVM机制与FFI.md) 的"四大限额"对应）：
+Kernel 2 用四个限额决定交易路径（与 [Mastercard 非接 CVM 与 FFI](../05-mastercard专题/Mastercard非接CVM机制与FFI.md) 的"四大限额"对应）：
 
 | 数据元 | 作用 |
 |--------|------|
@@ -78,7 +78,7 @@ Kernel 2 用四个限额决定交易路径（与 [Mastercard 非接 CVM 与 FFI]
 - `Min/Max Time For Processing Relay Resistance APDU`、`Device Estimated Transmission Time`（`DF8132`…）
 - `Relay Resistance Accuracy Threshold`、`Transmission Time Mismatch Threshold`、`Min/Max Relay Resistance Grace Period`、`RRP Counter`
 
-> [Sunmi T6F10 报告](./L3认证实例-Sunmi-T6F10终端配置剖析.md) 的 MC 非接配置即标注 **"RRP activated = Yes"**——RRP 已是现行 MCL 终端的常见要求。
+> [Sunmi T6F10 报告](../07-实测案例/L3认证实例-Sunmi-T6F10终端配置剖析.md) 的 MC 非接配置即标注 **"RRP activated = Yes"**——RRP 已是现行 MCL 终端的常见要求。
 
 ---
 

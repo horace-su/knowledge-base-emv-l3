@@ -1,14 +1,14 @@
 # L3 认证实例：Sunmi T6F10 终端配置剖析（Amex / Discover / Mastercard）
 
-> 用一台真实终端的 L3 测试配置报告，把本知识库的抽象概念（TAC/IAC/TVR、9F33 终端能力、CVM 限额、ODA、AID/LoA）映射到实际填报值。承接 [各卡组织 L3 认证测试要求一览](./各卡组织L3认证测试要求一览.md)、[TAC/IAC/TVR 决策逻辑](./TAC-IAC-TVR决策逻辑.md)、[接触与非接 CVM 详解](./接触与非接CVM详解.md)、[FIME-BTT 品牌测试工具深度解析](./FIME-BTT-品牌测试工具深度解析.md)。
+> 用一台真实终端的 L3 测试配置报告，把本知识库的抽象概念（TAC/IAC/TVR、9F33 终端能力、CVM 限额、ODA、AID/LoA）映射到实际填报值。承接 [各卡组织 L3 认证测试要求一览](../03-各卡组织L3认证/各卡组织L3认证测试要求一览.md)、[TAC/IAC/TVR 决策逻辑](../01-基础概念/TAC-IAC-TVR决策逻辑.md)、[接触与非接 CVM 详解](../01-基础概念/接触与非接CVM详解.md)、[FIME-BTT 品牌测试工具深度解析](../02-fime测试工具/FIME-BTT-品牌测试工具深度解析.md)。
 >
-> 来源：同一台设备针对三大卡组织的 EMVCo L3 Information Report + L1/L2 LoA 证书（已归档于 [`web-docs/`](./web-docs/)，见 [`SOURCES.md`](./web-docs/SOURCES.md)）。**报告中的收单机构名称、联系人、邮箱、账户号等个人/商业敏感信息已在本文中略去，仅保留终端技术配置。**
+> 来源：同一台设备针对三大卡组织的 EMVCo L3 Information Report + L1/L2 LoA 证书（已归档于 [`web-docs/`](../web-docs)，见 [`SOURCES.md`](../web-docs/SOURCES.md)）。**报告中的收单机构名称、联系人、邮箱、账户号等个人/商业敏感信息已在本文中略去，仅保留终端技术配置。**
 
 ---
 
 ## 一、被测设备与一次过审的批准链
 
-同一台终端（**Sunmi T6F10**，支付应用 **PayOS v1.0**，非接应用 `T6F10-PCD-SW v001`）同时在 **Amex / Discover / Mastercard** 三条 L3 程序下提交。L3 报告里逐项引用的「批准号」其实就是 L1/L2 阶段产出的 LoA——这正是 [L1 物理层 → L2 内核 → L3 集成](./各卡组织L3认证测试要求一览.md) 层级依赖的实物体现。
+同一台终端（**Sunmi T6F10**，支付应用 **PayOS v1.0**，非接应用 `T6F10-PCD-SW v001`）同时在 **Amex / Discover / Mastercard** 三条 L3 程序下提交。L3 报告里逐项引用的「批准号」其实就是 L1/L2 阶段产出的 LoA——这正是 [L1 物理层 → L2 内核 → L3 集成](../03-各卡组织L3认证/各卡组织L3认证测试要求一览.md) 层级依赖的实物体现。
 
 | 层级 | 批准/证书 | 编号 | 失效/续期 |
 |------|-----------|------|-----------|
@@ -20,7 +20,7 @@
 | D-PAS 非接内核 | D-PAS Connect 2.x | （厂商批准） | 2027-03-11 |
 | PCI PTS | PED | `4-40397`（v6.x） | — |
 
-> L3 测试工具：**FIME Brand Test Tool**（见 [FIME-BTT](./FIME-BTT-品牌测试工具深度解析.md)）。报告里 Mastercard 那份明确还要求一套 **Enhanced Professional Mastercard Simulator（MAS/MDFS）25.Q2+** 并导出 **EMVCo L3 Online Message Format** 主机日志——印证 [M-TIP TSE](./M-TIP-TSE配置详解.md) 的「卡模拟器 + 主机报文」双侧要求。
+> L3 测试工具：**FIME Brand Test Tool**（见 [FIME-BTT](../02-fime测试工具/FIME-BTT-品牌测试工具深度解析.md)）。报告里 Mastercard 那份明确还要求一套 **Enhanced Professional Mastercard Simulator（MAS/MDFS）25.Q2+** 并导出 **EMVCo L3 Online Message Format** 主机日志——印证 [M-TIP TSE](../05-mastercard专题/M-TIP-TSE配置详解.md) 的「卡模拟器 + 主机报文」双侧要求。
 
 ---
 
@@ -55,7 +55,7 @@
 
 - 非接 **CVM 限额 = 交易限额 = 20000**；支持超过 CVM 限额的交易；非接 CDA ✅。
 - ODA：SDA/DDA/CDA 均 capable，CDA **Mode 1**。
-- **多 AID 取舍**：报告逐项确认 **不**纳入 Discover Common Debit AID(`A0000001524010`)、JCB(`A0000000651010`)、UPI(`A0000003330101 01/02/03/08`)——是 [AID 与 CAPK 全卡组织参考表](./AID与CAPK全卡组织参考表.md) 里那些 AID 在真实报告中「选/不选」的写法范例。
+- **多 AID 取舍**：报告逐项确认 **不**纳入 Discover Common Debit AID(`A0000001524010`)、JCB(`A0000000651010`)、UPI(`A0000003330101 01/02/03/08`)——是 [AID 与 CAPK 全卡组织参考表](../01-基础概念/AID与CAPK全卡组织参考表.md) 里那些 AID 在真实报告中「选/不选」的写法范例。
 
 ---
 
@@ -86,7 +86,7 @@ M/Chip 规范 **MCL 3.1.4**，非接 `MC CL KERNEL v100`，**Relay Resistance Pr
 | CDCVM | ✅，交易限额 999999999 |
 | 限额上 CVM | Signature、Online PIN |
 
-**非接 TAC（按交易类型区分，体现 [TAC/IAC/TVR](./TAC-IAC-TVR决策逻辑.md) 的"两套动作码"）：**
+**非接 TAC（按交易类型区分，体现 [TAC/IAC/TVR](../01-基础概念/TAC-IAC-TVR决策逻辑.md) 的"两套动作码"）：**
 
 | 交易类型 | Denial | Online | Default |
 |----------|--------|--------|---------|
@@ -107,10 +107,10 @@ M/Chip 规范 **MCL 3.1.4**，非接 `MC CL KERNEL v100`，**Relay Resistance Pr
 
 | 报告里的字段 | 对应本库 |
 |--------------|----------|
-| TAC Denial/Online/Default（各接口、各交易类型） | [TAC/IAC/TVR 决策逻辑](./TAC-IAC-TVR决策逻辑.md) |
-| `9F33` / `9F1D` / 9F40 终端能力位 | [M-TIP TSE 问卷与终端配置参数](./M-TIP-TSE问卷与终端配置参数.md) |
-| CVM Required Limit / Floor / 交易限额 / CDCVM | [接触与非接 CVM 详解](./接触与非接CVM详解.md)、[Mastercard 非接 CVM 机制与 FFI](./Mastercard非接CVM机制与FFI.md) |
-| AEIPS/Expresspay、D-PAS Connect、M-TIP | [Amex 与 Discover L3](./Amex与Discover-L3认证深度解析.md)、[Visa 与 Mastercard L3](./Visa与Mastercard-L3认证深度解析.md) |
-| 多 AID 取舍、Common Debit | [AID 与 CAPK 全卡组织参考表](./AID与CAPK全卡组织参考表.md) |
-| ODA SDA/DDA/CDA、CDA Mode 1 | [ODA 证书链字节级](./ODA证书链字节级.md) |
-| UPI AID 在本报告中被排除 → UPI 走独立程序 | [银联国际 QuickPass L3 配置](./银联国际-QuickPass-L3配置与HK-SG特殊CVM.md) |
+| TAC Denial/Online/Default（各接口、各交易类型） | [TAC/IAC/TVR 决策逻辑](../01-基础概念/TAC-IAC-TVR决策逻辑.md) |
+| `9F33` / `9F1D` / 9F40 终端能力位 | [M-TIP TSE 问卷与终端配置参数](../05-mastercard专题/M-TIP-TSE问卷与终端配置参数.md) |
+| CVM Required Limit / Floor / 交易限额 / CDCVM | [接触与非接 CVM 详解](../01-基础概念/接触与非接CVM详解.md)、[Mastercard 非接 CVM 机制与 FFI](../05-mastercard专题/Mastercard非接CVM机制与FFI.md) |
+| AEIPS/Expresspay、D-PAS Connect、M-TIP | [Amex 与 Discover L3](../03-各卡组织L3认证/Amex与Discover-L3认证深度解析.md)、[Visa 与 Mastercard L3](../03-各卡组织L3认证/Visa与Mastercard-L3认证深度解析.md) |
+| 多 AID 取舍、Common Debit | [AID 与 CAPK 全卡组织参考表](../01-基础概念/AID与CAPK全卡组织参考表.md) |
+| ODA SDA/DDA/CDA、CDA Mode 1 | [ODA 证书链字节级](../01-基础概念/ODA证书链字节级.md) |
+| UPI AID 在本报告中被排除 → UPI 走独立程序 | [银联国际 QuickPass L3 配置](../03-各卡组织L3认证/银联国际-QuickPass-L3配置与HK-SG特殊CVM.md) |
