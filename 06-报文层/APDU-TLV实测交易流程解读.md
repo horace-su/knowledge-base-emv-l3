@@ -1,6 +1,6 @@
 # APDU / TLV 实测交易流程解读（字节级走读）
 
-> 把分散在各篇里的字节级知识，落到**一笔完整非接交易的 APDU 命令/响应序列**上逐条走读：每个 C-APDU（命令）、R-APDU（响应）、关键 TLV 的字节含义，以及它们最终如何汇成 [DE55](./ISO8583-DE55-逐标签实现清单.md) 上送发卡行。承接 [EMVCo Kernel 2 V2.11 规范要点](../01-基础概念/EMVCo-Kernel2-V2.11规范要点.md)、[非接内核深潜](../01-基础概念/emv-contactless-kernel-deep-dive.md)、[ODA 证书链字节级](../01-基础概念/ODA证书链字节级.md)、[TAC/IAC/TVR 决策逻辑](../01-基础概念/TAC-IAC-TVR决策逻辑.md)。
+> 把分散在各篇里的字节级知识，落到**一笔完整非接交易的 APDU 命令/响应序列**上逐条走读：每个 C-APDU（命令）、R-APDU（响应）、关键 TLV 的字节含义，以及它们最终如何汇成 [DE55](./ISO8583-DE55-逐标签实现清单.md) 上送发卡行。承接 [EMVCo Kernel 2 V2.11 规范要点](../01-基础概念/EMVCo-Kernel2-V2.11规范要点.md)、[非接内核深潜](../01-基础概念/emv-contactless-kernel-deep-dive.md)、[ODA 证书链字节级](../01-基础概念/ODA证书链字节级.md)、[TAC/IAC/TVR 决策逻辑](../01-基础概念/TAC-IAC-TVR决策逻辑.md)。逐字节手算太慢时，可用 [在线报文与 TLV 解析工具速查](./在线报文与TLV解析工具速查.md) 自动拆解（**注意 PII 安全红线**）。
 >
 > ⚠️ **§〇–§七的 APDU 字节为依据 EMV Book 1/3 + Book C-2 构造的代表性「合成」示例**（一笔**非接** qVSDC/Kernel 2 交易），用于讲解结构与解析方法。**§八是真实抓包实证**——来自 FIME Brand Test Tool 的一次 M-TIP 测试会话（接触 M/Chip 交易），APDU 与主机 DE55 一一对应。两者配合：先用合成例学解析法，再用真实例验证。
 
