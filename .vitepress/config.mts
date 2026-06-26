@@ -136,6 +136,7 @@ export default defineConfig({
         text: '报文层',
         items: [
           { text: 'ISO 8583 报文域全景与 DE22', link: '/06-报文层/ISO8583-报文域全景与POS录入方式' },
+          { text: '磁条/接触/非接报文差异对照', link: '/06-报文层/ISO8583-磁条-接触-非接报文差异对照' },
           { text: 'DE55 跨卡组织要求(框架篇)', link: '/06-报文层/ISO8583-字段55-跨卡组织要求' },
           { text: 'DE55 逐标签实现清单(字节级)', link: '/06-报文层/ISO8583-DE55-逐标签实现清单' },
           { text: 'APDU/TLV 实测交易走读', link: '/06-报文层/APDU-TLV实测交易流程解读' },
@@ -214,6 +215,7 @@ export default defineConfig({
         collapsed: false,
         items: [
           { text: 'ISO 8583 报文域全景与 DE22 / 技术回退', link: '/06-报文层/ISO8583-报文域全景与POS录入方式' },
+          { text: 'ISO 8583 报文差异对照：磁条/接触/非接', link: '/06-报文层/ISO8583-磁条-接触-非接报文差异对照' },
           { text: 'DE55 与各卡组织 EMV 数据要求（框架篇）', link: '/06-报文层/ISO8583-字段55-跨卡组织要求' },
           { text: 'DE55 逐标签实现清单（字节级）', link: '/06-报文层/ISO8583-DE55-逐标签实现清单' },
           { text: 'APDU/TLV 实测交易流程解读', link: '/06-报文层/APDU-TLV实测交易流程解读' },
