@@ -34,6 +34,7 @@
 ### 三之二、实测案例
 - [L3 认证实例：Sunmi T6F10 终端配置剖析](./07-实测案例/L3认证实例-Sunmi-T6F10终端配置剖析.md) —— 同一终端在 Amex/Discover/Mastercard 三程序下的真实 L3 报告：L1/L2 LoA 链、各接口 TAC/9F33/9F1D、CVM 限额、多 AID 取舍（PII 已剥离）
 - [实测失败案例：M-TIP02 技术回退（DE22=90 应为 80）](./06-报文层/ISO8583-报文域全景与POS录入方式.md) —— FIME BTT 抓取的 Mastercard M-TIP02.Test.01.Scenario.01 失败截图逐字段拆解、根因（fallback 录入方式标错）、修复与重测（收录于报文外层篇 §七）
+- [实测案例：Visa 非接 59「卡片校验错误」→ 从 55 域 `91` 反解 ARC 定位发卡行拒绝](./07-实测案例/实测案例-Visa非接59拒绝-ARC反解.md) —— 拍卡 qVSDC 返回 DE39=59，请求 55 域齐备自洽排除终端侧；拆响应 `91`=ARPC+ARC，`ARC`=`3539`=ASCII"59" 确证发卡行 Suspected Fraud 拒绝；沉淀"ARC 反解 + 有 ARPC 即密文链正常"诊断套路 + **CNP/跨境侧 decline recovery 延伸**（3DS 无感/有感核身、网络令牌、Account Updater、智能重试）
 
 ### 四、Visa 专题
 - [Visa-Global-L3-Test-Set 与 qVSDC-DM](./04-visa专题/Visa-Global-L3-Test-Set与qVSDC-DM.md) —— 2022 年取代 ADVT/CDET 的标准测试集 + 条件性工具 qVSDC DM
@@ -54,6 +55,8 @@
 - [APDU/TLV 实测交易流程解读（字节级走读）](./06-报文层/APDU-TLV实测交易流程解读.md) —— 一笔非接交易 PPSE→SELECT→GPO→READ RECORD→GENERATE AC 的逐条 C/R-APDU 与 TLV 字节解析（合成示例教方法）+ §八**真实实证**：FIME BTT 抓取的同一笔 M-TIP06 接触 M/Chip 交易，卡侧 APDU 与主机 DE55 逐字节对应（SGD/新加坡，离线 DDA+PIN，ARQC 联机）
 - [收单主机认证（Host Certification）与 L3 重测触发条件](./06-报文层/收单主机认证与L3重测触发条件.md) —— 主机认证 vs 终端 L3 的位置与先后；Mastercard NIV(TAN)/Visa Acquirer Host/Discover D-PAS Online+Clearing/Amex 流程；"改了什么才需要重做 L3" 的变更触发矩阵
 - [在线报文与 TLV 解析工具速查](./06-报文层/在线报文与TLV解析工具速查.md) —— 整合公开的 **EMV BER-TLV 解析器**(emvdecoder/paymentcardtools/emvlab/goto327) + **ISO 8583 外层报文解析器**(goto327/neaPay) + **单标签位级解码器**(DE22/TVR/TTQ/CTQ/AIP/9F33…) + **密文/密钥计算器**(ARQC/MAC/UDK/Key Block) 四类工具，含 **PII/密钥安全红线**与客户端/离线优先建议
+- [ISO 8583 DE39 应答码全表、软/硬拒绝与拒绝治理](./06-报文层/ISO8583-DE39应答码与拒绝治理.md) —— **一手来源**：Visa Developer 官方 Action Code 完整码表（含 `59`/`63`/`82`/`Q1` 等"卡校验"相关码辨析）+ Mastercard 拒绝三分组(79/82/83)与 **完整 Merchant Advice Code(01–05/21/22/24–30/40/41，含官方重试计时)**+30 天重试收费红线 + 软/硬拒绝重试边界 + decline recovery 一手规范出处(EMV 3-D Secure v2.3.1.1 / EMVCo 支付令牌化 / Account Updater)【应答码篇】
+- [EMV 3-D Secure：AReq/ARes 报文字段与认证结果](./06-报文层/EMV-3DS-AReq-ARes报文字段与认证结果.md) —— CNP 风险类拒绝的挽回载体：四对报文(AReq/ARes·CReq/CRes·RReq/RRes·PReq/PRes)+三域模型 + **AReq/ARes 全量数据元**(threeDSServerTransID/deviceChannel/purchaseAmount/browser*·authenticationValue/eci/acsURL…) + **transStatus(Y/N/U/A/C/R/D)** + **transStatusReason(01 卡认证失败/11 疑似欺诈…)与授权侧 DE39 一一对应**【3DS 认证篇】
 
 ### 六、原始来源文档
 - [`web-docs/`](./web-docs) —— 原始来源文件（公开规范 PDF + 项目实测资料；来源清单见 [`web-docs/SOURCES.md`](./web-docs/SOURCES.md)）。⚠️ 实测资料含 PII / 第三方机密，纳入版本控制前请阅读 SOURCES.md 的敏感性提示。
