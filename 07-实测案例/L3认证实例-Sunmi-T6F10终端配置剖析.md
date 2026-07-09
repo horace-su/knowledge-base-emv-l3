@@ -37,7 +37,7 @@
 | 接触 CVM | Offline Plaintext/Enciphered PIN、PIN Bypass、Signature(可选)、No CVM |
 | 非接 CVM | Online PIN、Signature(可选)、No CVM |
 
-> 注意报告标注：**Offline Plaintext PIN 自 2026-01 起在无人值守终端测试中不再可用**——一个会随门户更新而变化的合规截止点，正是本库反复强调「精确编号以门户最新版为准」的典型。GCAG ISO 报文下**离线/在线退款不支持、商户冲正支持**。
+> 注意报告标注：**Offline Plaintext PIN 自 2026-01 起在无人值守终端测试中不再可用**——一个会随门户更新而变化的合规截止点，正是本库反复强调「精确编号以门户最新版为准」的典型。GCAG ISO 报文下**离线/在线退款不支持、商户冲正支持**（这一取向在冲正体系中的位置见 [冲正报文要求与触发条件 §十四](../06-报文层/ISO8583-冲正报文要求与触发条件.md)）。
 
 ---
 
