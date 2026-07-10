@@ -84,7 +84,24 @@
 - 实测抓包**方法与字节级走读已补**（见 [APDU/TLV 实测交易流程解读](./06-报文层/APDU-TLV实测交易流程解读.md)，含合成示例）；下一步可用 Card Spy / SmartSpy+ 把**真实抓包数据**替换示例字节
 - 各卡组织 L3 测试计划的逐用例语义（编号体系已补，见 [FIME BTT .tpp 与 L3 测试计划](./02-fime测试工具/FIME-BTT-TPP项目文件与L3测试计划.md)）
 
-## 一致性核查（2026-06-25 复核）
+## 一致性核查（2026-07-10 复核）
+
+**2026-07-10（新增冲正篇 + VitePress 路由补齐）**：
+- 新增 [ISO 8583 冲正（Reversal）报文要求与触发条件](./06-报文层/ISO8583-冲正报文要求与触发条件.md)：MTI 家族(`0400/0410/0420/0430`)、触发条件、EMV 侧第二次 GENERATE AC=AAC 与外层冲正衔接、DE90/DE95/匹配键、重发·幂等(`79`)·必达，及**四体系逐域落域总表**（银联系 Cardnow V2.13 用 DE60.3/60.4 / Mastercard DE30·DE90·DE95 / Visa BASE I Field 90·95 / Amex GCAG ISO 实测"支持冲正、不支持退款"）。素材见 [`web-docs/SOURCES.md`](./web-docs/SOURCES.md)（Cardnow B 组、Amex Expresspay B 组、U.S. Payments Forum A 组）。
+- 报文全景篇 / DE55 逐标签篇 / Sunmi T6F10 剖析篇补双向互链。
+- **修正 VitePress 路由漂移**：`nav`/`sidebar` 的「报文层」分组此前漏挂 **5 篇**（DE55 标签分组速查、在线报文与 TLV 解析工具速查、冲正报文、DE39 应答码、EMV 3-D Secure），已按 README 顺序在两处全部补入；`index.md` 报文层卡片简介同步刷新。
+- 核查：全库 **41 篇内容文档**（报文层 11 篇）均被 README 索引且已进 nav/sidebar；`vitepress build` **零死链通过**。
+
+| 检查项 | 结果 |
+|--------|------|
+| 内部链接（含新增冲正篇的全部 .md 交叉链 + 新增双向互链） | ✅ 全部有效，零失效 |
+| README 文档覆盖 | ✅ 41 篇内容文档全部索引，无孤儿 |
+| VitePress 站点（nav/sidebar/index 路由与 README 对齐） | ✅ 报文层 11 篇全部挂载，build 零死链 |
+| 冲正四体系落域（银联 DE60.3/60.4 / MC·Visa DE90·DE95·F90·F95 / Amex GCAG） | ✅ 自洽，均标注"精确子域以主机接口规范为准" |
+
+---
+
+### 历史核查（2026-06-25 复核）
 
 **2026-06-25（目录重组 + 新增 EMVCo L3 框架篇）**：
 - 新增 [EMVCo L3 测试框架与标准化文件格式](./01-基础概念/EMVCo-L3测试框架与标准化文件格式.md)（伪函数 `emvcard.*` / 联机响应 `emvsim.*`），素材为新拉取的 EMVCo 公开规范（见 [`web-docs/SOURCES.md`](./web-docs/SOURCES.md) A 组）。
