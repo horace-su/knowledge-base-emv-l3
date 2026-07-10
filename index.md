@@ -47,7 +47,7 @@ features:
     linkText: 进入 Mastercard 专题
   - icon: 📡
     title: 报文层（主机侧）
-    details: ISO 8583 报文域全景 + DE22 录入方式 / 技术回退、DE55 逐标签字节级实现清单、APDU/TLV 实测走读，以及主机认证与 L3 重测触发矩阵。
+    details: ISO 8583 报文域全景 + DE22 录入方式 / 技术回退、DE55 逐标签字节级实现清单、APDU/TLV 实测走读、冲正报文(四体系落域)、DE39 应答码治理，以及主机认证与 L3 重测触发矩阵。
     link: /06-报文层/ISO8583-报文域全景与POS录入方式
     linkText: 进入报文层
 ---
