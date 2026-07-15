@@ -1,0 +1,69 @@
+# EMV L3 知识库
+
+> 围绕 EMV Level 3（终端集成 / 部署）测试与认证的中文知识库，覆盖 FIME 测试工具、Visa / Mastercard / Amex / Discover / JCB / 银联 六大卡组织 L3 认证程序及其用例与字节级配置细节。内容为中文正文 + 英文技术术语内联（CVM、TVR、CDCVM…），EMV TLV 标签以十六进制反引号书写（如 `9F66`、`8E`）。共 40 篇内容文档，分为：基础概念、FIME 测试工具、各卡组织 L3 认证、实测案例、Visa/Mastercard 专题、报文层（主机侧）。
+
+## 基础概念
+
+- [EMV Contactless Kernel Deep Dive](https://horace-su.github.io/knowledge-base-emv-l3/01-基础概念/emv-contactless-kernel-deep-dive.html): 非接内核（Kernel 2/3/6…）与支付品牌映射（K2=Mastercard、K3=Visa、K6=Discover）
+- [接触与非接 CVM 详解](https://horace-su.github.io/knowledge-base-emv-l3/01-基础概念/接触与非接CVM详解.html): CVM List(`8E`)、CVM Results(`9F34`)、非接三大限额、CDCVM、Visa/MC 内核差异
+- [EMV 免密免签判断流程](https://horace-su.github.io/knowledge-base-emv-l3/01-基础概念/EMV免密免签判断流程.html): 免密免签三条路径、接触 `8E` 与非接限额判定链、分卡组免密入口对照、合规边界内最大化免密
+- [终端配置：AID 与 CAPK](https://horace-su.github.io/knowledge-base-emv-l3/01-基础概念/终端配置-AID与CAPK.html): AID(RID+PIX)/应用选择/部分匹配/TAC；CAPK(RID+Index)/ODA 证书链/测试 vs 生产密钥
+- [AID 与 CAPK 全卡组织参考表](https://horace-su.github.io/knowledge-base-emv-l3/01-基础概念/AID与CAPK全卡组织参考表.html): 全卡组织 AID 速查 + 生产/测试 CAPK 索引表（明确标记测试 vs 真实）
+- [TAC / IAC / TVR 决策逻辑](https://horace-su.github.io/knowledge-base-emv-l3/01-基础概念/TAC-IAC-TVR决策逻辑.html): TVR(`95`) 位含义、Denial/Online/Default 判定、AAC/ARQC/TC、两次 GENERATE AC
+- [ODA 证书链字节级](https://horace-su.github.io/knowledge-base-emv-l3/01-基础概念/ODA证书链字节级.html): CAPK→Issuer(`90`)→ICC(`9F46`) 恢复格式、SDA/DDA/CDA、失败点→TVR
+- [EMVCo Kernel 2 V2.11 规范要点](https://horace-su.github.io/knowledge-base-emv-l3/01-基础概念/EMVCo-Kernel2-V2.11规范要点.html): MC 非接内核进程模型、Data Exchange、Outcome、Data Record、四大限额、RRP
+- [终端配置：各内核数据元参考（D-PAS L2）](https://horace-su.github.io/knowledge-base-emv-l3/01-基础概念/终端配置-各内核数据元参考-DPAS-L2.html): 跨内核标准 + 专有(DF81xx)配置标签速查
+- [EMVCo L3 测试框架与标准化文件格式](https://horace-su.github.io/knowledge-base-emv-l3/01-基础概念/EMVCo-L3测试框架与标准化文件格式.html): L3FIG/测试卡映像 XML/TSE/日志、测试卡映像伪函数 `emvcard.*`、联机响应 XML 语法 + `emvsim.*`
+
+## FIME 测试工具
+
+- [FIME L3 测试工具深度解析](https://horace-su.github.io/knowledge-base-emv-l3/02-fime测试工具/FIME-L3测试工具深度解析.html): 10 个工具总览（ASTREX / BTT / STP / Card Simulator / Card Spy / SmartSpy+ / EMV PVT 等）
+- [FIME-BTT 品牌测试工具深度解析](https://horace-su.github.io/knowledge-base-emv-l3/02-fime测试工具/FIME-BTT-品牌测试工具深度解析.html): 旗舰 L3 产品 BTT 的能力、卡组织覆盖、软硬件组成
+- [FIME BTT `.tpp` 项目文件与 L3 测试计划](https://horace-su.github.io/knowledge-base-emv-l3/02-fime测试工具/FIME-BTT-TPP项目文件与L3测试计划.html): `.tpp`(ZIP) 工程包结构 + Amex/Discover/MC/Visa 真实测试计划名/版本/用例编号体系（BTT 5.8.0）
+
+## 各卡组织 L3 认证
+
+- [各卡组织 L3 认证测试要求一览](https://horace-su.github.io/knowledge-base-emv-l3/03-各卡组织L3认证/各卡组织L3认证测试要求一览.html): Visa / Mastercard / Amex / Discover / JCB / 银联 对照总表
+- [Visa 与 Mastercard L3 认证深度解析](https://horace-su.github.io/knowledge-base-emv-l3/03-各卡组织L3认证/Visa与Mastercard-L3认证深度解析.html): 两大组织流程、工具、提交机制对比
+- [Amex 与 Discover L3 认证深度解析](https://horace-su.github.io/knowledge-base-emv-l3/03-各卡组织L3认证/Amex与Discover-L3认证深度解析.html): AEIPS/Expresspay(AFD/Transit/Fleet) + D-PAS E2E(ZIP/Fallback/Cross Testing)
+- [JCB 与银联 L3 认证深度解析](https://horace-su.github.io/knowledge-base-emv-l3/03-各卡组织L3认证/JCB与银联-L3认证深度解析.html): JCB TCI/TCI-CL + 银联国内(PBOC/国密) vs 国际(UPI·UAC/QuickPass)
+- [JCB TCI 测试用例与编号体系](https://horace-su.github.io/knowledge-base-emv-l3/03-各卡组织L3认证/JCB-TCI测试用例与编号体系.html): TCI(J/Smart)/TCI-CL(J/Speedy) 用例分组、编号体系结构、JCB 专有数据元(`9F53` TIP)
+- [银联国内：PBOC 3.0 与国密算法](https://horace-su.github.io/knowledge-base-emv-l3/03-各卡组织L3认证/银联国内-PBOC3.0与国密算法.html): PBOC 2.0/3.0 沿革、SM2/SM3/SM4、DF69 算法切换、qPBOC、BCTC 认证
+- [银联国际 QuickPass L3 配置与 HK/SG 特殊 CVM](https://horace-su.github.io/knowledge-base-emv-l3/03-各卡组织L3认证/银联国际-QuickPass-L3配置与HK-SG特殊CVM.html): UPI AID/测试 CAPK/TAC/`9F66`(TTQ) 配置 + 港/新非接借记/贷记特殊 CVM 规则
+
+## 实测案例
+
+- [L3 认证实例：Sunmi T6F10 终端配置剖析](https://horace-su.github.io/knowledge-base-emv-l3/07-实测案例/L3认证实例-Sunmi-T6F10终端配置剖析.html): 同一终端在 Amex/Discover/MC 三程序下的真实 L3 报告（L1/L2 LoA 链、各接口 TAC/`9F33`/`9F1D`、CVM 限额、多 AID 取舍，PII 已剥离）
+- [实测案例：Visa 非接 59 拒绝 → ARC 反解](https://horace-su.github.io/knowledge-base-emv-l3/07-实测案例/实测案例-Visa非接59拒绝-ARC反解.html): 从 55 域 `91` 反解 ARC 定位发卡行拒绝，ARC=`3539`=ASCII"59" 确证 Suspected Fraud + CNP/跨境 decline recovery 延伸
+
+## Visa 专题
+
+- [Visa Global L3 Test Set 与 qVSDC-DM](https://horace-su.github.io/knowledge-base-emv-l3/04-visa专题/Visa-Global-L3-Test-Set与qVSDC-DM.html): 2022-07-16 取代 ADVT/CDET 的标准测试集 + 条件性工具 qVSDC DM
+- [Visa CDET 非接测试用例细分](https://horace-su.github.io/knowledge-base-emv-l3/04-visa专题/Visa-CDET非接测试用例细分.html): CDET 17(=13+4) 个非接用例逐卡细分
+- [Visa TTQ/CTQ 与 CDCVM Token 化指示](https://horace-su.github.io/knowledge-base-emv-l3/04-visa专题/Visa-TTQ-CTQ与CDCVM-Token化指示.html): TTQ(`9F66`)/CTQ(`9F6C`) 位级解析 + Apple Pay/Google Pay 的 CDCVM 指示机制
+- [MC-TSE 配置项与 Visa L3 测试用例](https://horace-su.github.io/knowledge-base-emv-l3/04-visa专题/MC-TSE配置项与Visa-L3测试用例.html): ADVT 接触 29(=22+7) 用例清单 + TSE 配置项概览
+
+## Mastercard 专题
+
+- [M-TIP TSE 配置详解](https://horace-su.github.io/knowledge-base-emv-l3/05-mastercard专题/M-TIP-TSE配置详解.html): TSE 操作流程、问卷结构、动态裁剪、结果判定层级
+- [M-TIP TSE 问卷与终端配置参数](https://horace-su.github.io/knowledge-base-emv-l3/05-mastercard专题/M-TIP-TSE问卷与终端配置参数.html): 问卷字段→EMV 对象映射(`9F35`/`9F33`/`9F40`)、动态裁剪逻辑、终端配置参数位级
+- [Mastercard 非接 CVM 机制与 FFI](https://horace-su.github.io/knowledge-base-emv-l3/05-mastercard专题/Mastercard非接CVM机制与FFI.html): Kernel 2 四大限额 + CVM Capability + On-device CVM；FFI(`9F6E`) 品牌差异与位级
+
+## 报文层（主机侧）
+
+- [ISO 8583 报文域全景与 POS 录入方式（DE22）/ 技术回退](https://horace-su.github.io/knowledge-base-emv-l3/06-报文层/ISO8583-报文域全景与POS录入方式.html): MTI/Bitmap/DE 结构 + L3 关键域速查 + DE22 录入方式码值(05/07/80/90/91) + 技术回退(80 vs 90) + 实测 M-TIP02 回退失败逐字段拆解
+- [ISO 8583 报文差异对照：磁条 / 接触 / 非接](https://horace-su.github.io/knowledge-base-emv-l3/06-报文层/ISO8583-磁条-接触-非接报文差异对照.html): 三路径报文差异、DE55 分水岭、两类降级(80·91)、DE23↔`5F34` 卡序列号、按路径 L3 校验清单
+- [ISO 8583 字段 55（DE55）与各卡组织 EMV 数据要求](https://horace-su.github.io/knowledge-base-emv-l3/06-报文层/ISO8583-字段55-跨卡组织要求.html): DE55 来源(内核 Data Record)、通用必备 EMV 标签、六卡组织 DE55 差异【框架篇】
+- [DE55 逐标签实现清单（字节级）](https://horace-su.github.io/knowledge-base-emv-l3/06-报文层/ISO8583-DE55-逐标签实现清单.html): 以 Cardnow V2.13 Appendix C 为底本逐标签 ID/长度/字节拆分 + `9F53`/`9F6E` 复用陷阱【实现篇】
+- [DE55 标签分组速查（必填/条件/专有/响应侧）](https://horace-su.github.io/knowledge-base-emv-l3/06-报文层/ISO8583-DE55-标签分组速查.html): 按方向与必选度重排的速查表 + 六处常见误判勘误【速查·勘误篇】
+- [APDU/TLV 实测交易流程解读（字节级走读）](https://horace-su.github.io/knowledge-base-emv-l3/06-报文层/APDU-TLV实测交易流程解读.html): PPSE→SELECT→GPO→READ RECORD→GENERATE AC 逐条 C/R-APDU 与 TLV 字节解析 + 真实 M-TIP06 抓包对应
+- [收单主机认证（Host Certification）与 L3 重测触发条件](https://horace-su.github.io/knowledge-base-emv-l3/06-报文层/收单主机认证与L3重测触发条件.html): 主机认证 vs 终端 L3、各卡组织流程、变更触发矩阵
+- [在线报文与 TLV 解析工具速查](https://horace-su.github.io/knowledge-base-emv-l3/06-报文层/在线报文与TLV解析工具速查.html): EMV BER-TLV / ISO 8583 / 单标签位级 / 密文密钥计算器四类工具 + PII/密钥安全红线
+- [ISO 8583 冲正（Reversal）报文要求与触发条件](https://horace-su.github.io/knowledge-base-emv-l3/06-报文层/ISO8583-冲正报文要求与触发条件.html): `0400/0420` 冲正 MTI 家族、触发条件、第二次 GENERATE AC=AAC 衔接、DE90/DE95/匹配键、幂等(`79`)、四体系落域总表
+- [ISO 8583 DE39 应答码全表与拒绝治理](https://horace-su.github.io/knowledge-base-emv-l3/06-报文层/ISO8583-DE39应答码与拒绝治理.html): Visa 官方 Action Code 码表 + MC 拒绝三分组与 Merchant Advice Code + 软/硬拒绝重试边界【应答码篇】
+- [EMV 3-D Secure：AReq/ARes 报文字段与认证结果](https://horace-su.github.io/knowledge-base-emv-l3/06-报文层/EMV-3DS-AReq-ARes报文字段与认证结果.html): 四对报文 + 三域模型 + AReq/ARes 全量数据元 + transStatus(Y/N/U/A/C/R/D) 与 DE39 对应【3DS 认证篇】
+
+## Optional
+
+- [README（权威索引/目录）](https://github.com/horace-su/knowledge-base-emv-l3/blob/master/README.md): 全库权威目录、关键速记表、跨文档不变量与一致性核查记录
+- [web-docs 原始来源](https://github.com/horace-su/knowledge-base-emv-l3/tree/master/web-docs): 原始来源 PDF（EMVCo 规范 / L3 报告 / 卡组织规则），来源清单见 SOURCES.md（含 PII/机密敏感性提示）
