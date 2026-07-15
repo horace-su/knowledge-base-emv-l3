@@ -2,13 +2,23 @@ import { defineConfig } from 'vitepress'
 
 // EMV L3 知识库 —— VitePress 站点配置
 // 内容文档位于仓库根目录（.md），本配置负责导航 / 侧边栏 / 搜索 / 主题。
+
+// 部署到 GitHub Pages 项目站点时需要子路径 base（如 /knowledge-base-emv-l3/）；
+// CI 通过 DOCS_BASE 注入，本地开发默认根路径。
+const base = process.env.DOCS_BASE || '/'
+
+// llms.txt / llms-full.txt 是面向 LLM 的静态文件（非页面），由 docs:build
+// 从仓库根目录复制进 public/，站点在 base 根路径提供。手动拼 base 避免
+// normalizeLink 对 .txt 不加 base 前缀导致的项目子路径 404；target:_blank
+// 让浏览器直接下载 / 打开，绕开 SPA 路由拦截。
+const llmsTxt = `${base}llms.txt`
+const llmsFullTxt = `${base}llms-full.txt`
+
 export default defineConfig({
   lang: 'zh-CN',
   title: 'EMV L3 知识库',
 
-  // 部署到 GitHub Pages 项目站点时需要子路径 base（如 /knowledge-base-emv-l3/）；
-  // CI 通过 DOCS_BASE 注入，本地开发默认根路径。
-  base: process.env.DOCS_BASE || '/',
+  base,
 
   description:
     'EMV Level 3（终端集成 / 部署）测试与认证中文知识库 —— 覆盖 FIME 测试工具、Visa / Mastercard / Amex / Discover / JCB / 银联 六大卡组织 L3 认证程序、用例与字节级配置细节。',
@@ -148,6 +158,13 @@ export default defineConfig({
           { text: 'EMV 3-D Secure AReq/ARes', link: '/06-报文层/EMV-3DS-AReq-ARes报文字段与认证结果' },
         ],
       },
+      {
+        text: 'llms.txt',
+        items: [
+          { text: 'llms.txt（索引）', link: llmsTxt, target: '_blank', rel: 'noopener' },
+          { text: 'llms-full.txt（全文汇编）', link: llmsFullTxt, target: '_blank', rel: 'noopener' },
+        ],
+      },
     ],
 
     sidebar: [
@@ -230,6 +247,14 @@ export default defineConfig({
           { text: 'ISO 8583 冲正报文要求与触发条件', link: '/06-报文层/ISO8583-冲正报文要求与触发条件' },
           { text: 'ISO 8583 DE39 应答码与拒绝治理', link: '/06-报文层/ISO8583-DE39应答码与拒绝治理' },
           { text: 'EMV 3-D Secure：AReq/ARes 报文字段', link: '/06-报文层/EMV-3DS-AReq-ARes报文字段与认证结果' },
+        ],
+      },
+      {
+        text: '面向 LLM（llms.txt）',
+        collapsed: false,
+        items: [
+          { text: 'llms.txt（精选索引）', link: llmsTxt, target: '_blank', rel: 'noopener' },
+          { text: 'llms-full.txt（全文汇编）', link: llmsFullTxt, target: '_blank', rel: 'noopener' },
         ],
       },
     ],

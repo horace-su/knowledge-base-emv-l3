@@ -9,6 +9,11 @@ node_modules/
 .vitepress/cache/
 .vitepress/dist/
 
+# llms.txt / llms-full.txt 的单一真源在仓库根目录；
+# 构建时由 docs:dev / docs:build 复制进 public/ 供站点在根路径提供，故忽略副本。
+public/llms.txt
+public/llms-full.txt
+
 # 本地临时/草稿文件（非知识库内容）
 Chat.md
 Help.md
