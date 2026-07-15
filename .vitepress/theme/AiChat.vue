@@ -10,6 +10,7 @@ const LS_MODEL = 'emv-ai-openrouter-model'
 // OpenRouter 上常见的免费模型（:free 后缀，额度有限、可能随平台调整）。
 // 若模型下线，在“设置”里可直接改写为任意 OpenRouter model id。
 const FREE_MODELS = [
+  { id: 'xiaomi/mimo-v2-flash:free', name: 'MiMo V2 Flash 推理/代码 (free)' },
   { id: 'deepseek/deepseek-chat-v3-0324:free', name: 'DeepSeek V3 (free)' },
   { id: 'deepseek/deepseek-r1:free', name: 'DeepSeek R1 推理 (free)' },
   { id: 'meta-llama/llama-3.3-70b-instruct:free', name: 'Llama 3.3 70B (free)' },
