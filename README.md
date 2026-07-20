@@ -63,6 +63,9 @@
 ### 六、原始来源文档
 - [`web-docs/`](./web-docs) —— 原始来源文件（公开规范 PDF + 项目实测资料；来源清单见 [`web-docs/SOURCES.md`](./web-docs/SOURCES.md)）。⚠️ 实测资料含 PII / 第三方机密，纳入版本控制前请阅读 SOURCES.md 的敏感性提示。
 
+### 站点功能页（非内容文档，不计入上面的 40 篇）
+- [`ai-chat.md`](./ai-chat.md) → 站点路由 `/ai-chat`，nav「AI 助手」入口。VitePress 全屏问答页，直连 OpenRouter 免费模型（`:free`），组件为 [`.vitepress/theme/AiChat.vue`](./.vitepress/theme/AiChat.vue)。无后端：API Key 与多会话历史均存浏览器 `localStorage`，支持会话新建/重命名/删除与 JSON 导入导出。系统提示词内嵌了知识库地图与跨文档不变量（改文档时须与 [`CLAUDE.md`](./CLAUDE.md) 的「一致性核查」同步）。此页是**工具入口**而非知识内容，故与 `llms.txt` 一样只挂 nav、不计入内容文档计数与孤儿核查。
+
 ## 关键速记
 
 | 卡组织 | 程序 | 接触 | 非接 | 提交/产出 |

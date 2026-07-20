@@ -12,6 +12,7 @@
     "docs:preview": "vitepress preview"
   },
   "devDependencies": {
+    "markdown-it": "^14.3.0",
     "vitepress": "^1.6.4"
   }
 }

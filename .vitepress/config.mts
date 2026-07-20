@@ -97,6 +97,7 @@ export default defineConfig({
 
     nav: [
       { text: '首页', link: '/' },
+      { text: 'AI 助手', link: '/ai-chat' },
       {
         text: '基础概念',
         items: [
